@@ -16,6 +16,9 @@ import "../index.css";
 import { useState } from "react";
 
 const Sidebar = () => {
+  const today = new Date();
+  const clockInLink = `/clock-in/${today.getFullYear().toString()}/${today.getMonth().toString()}`;
+
   const [currentLink, setCurrentLink] = useState("/dashboard");
   return (
     <div className="pcnavbar">
@@ -61,10 +64,6 @@ const Sidebar = () => {
             <InboxIcon className="icon" />
             Inbox
           </Link>
-          <Link to="/c" className="navlinks">
-            <StoreIcon className="icon" />
-            Integrations
-          </Link>
           <p
             style={{
               fontWeight: "600",
@@ -76,7 +75,7 @@ const Sidebar = () => {
             <UserIcon className="icon" />
             Me
           </Link>
-          <Link to="/e" className="navlinks">
+          <Link to={clockInLink} className="navlinks">
             <ClockIcon className="icon" />
             Clock in
           </Link>

@@ -10,23 +10,18 @@ const CardElement = (params: CardElementsProps) => {
     <div style={{
         display: 'flex',
         flexDirection: 'column',
-        width: '100%',
         height: '18rem',
-        backgroundColor: '#FFFFFF',
-        borderRadius: '0.5rem',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', 
-    }}>
+    }} className='card-element'>
         <p style={{
-            fontWeight: '500',
+            fontWeight: '600',
             padding: '0.6rem 1rem 0.45rem 1rem',
             margin: '0',
-            fontSize: '1.15rem'
+            fontSize: '1rem'
         }}>
             {params.title}
         </p>
         <hr style={{
             border: '0',
-            width: '100%',
             height: '1px',
             padding: '0',
             margin: '0',

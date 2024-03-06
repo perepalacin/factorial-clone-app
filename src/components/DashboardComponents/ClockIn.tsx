@@ -14,7 +14,6 @@ const ClockIn = () => {
         alignItems: "center",
         justifyItems: "center",
         justifyContent: 'center',
-        width: "100%",
         height: "100%",
       }}
     >
@@ -27,7 +26,7 @@ const ClockIn = () => {
       <p
         style={{
             fontSize: "1.75rem",
-            fontWeight: "400",
+            fontWeight: "500",
         }}
         >
         {time}

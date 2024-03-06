@@ -5,7 +5,7 @@ import "../../index.css";
 const Inbox = () => {
   const data = [
     {
-    //TODO: Add another category to select the icon to display!
+      //TODO: Add another category to select the icon to display!
       title: "You have shifts to fill.",
       subtitle: "You have worked 0 days in March",
     },
@@ -18,25 +18,29 @@ const Inbox = () => {
         gap: "0.5rem",
         marginLeft: "1rem",
         marginRight: "1rem",
+        marginTop: '0.75rem',
       }}
     >
       {data.map((item) => {
         return (
           <div
-          key={item.title}
+            key={item.title}
             style={{
               display: "flex",
               flexDirection: "row",
-              gap: "1.5rem",
+              gap: "1rem",
               alignItems: "center",
             }}
           >
-            <ClockIcon className="icon" style = {{
-                padding: '0.5rem',
-                backgroundColor: 'rgba(201, 241, 245)',
-                borderRadius: '0.75rem',
-                color: '#06838C'
-            }} />
+            <ClockIcon
+              className="icon"
+              style={{
+                padding: "0.5rem",
+                backgroundColor: "rgba(201, 241, 245)",
+                borderRadius: "0.75rem",
+                color: "#06838C",
+              }}
+            />
             <div
               style={{
                 display: "flex",
@@ -46,7 +50,7 @@ const Inbox = () => {
               <p
                 style={{
                   fontWeight: "500",
-                  fontSize: "1.1rem",
+                  fontSize: "1rem",
                 }}
               >
                 {item.title}

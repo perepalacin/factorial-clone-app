@@ -1,7 +1,6 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
-  font-weight: 400;
   margin: 0;
   padding: 0;
 
@@ -25,10 +24,10 @@ p {
   align-items: center;
   padding: 0.25rem;
   gap: 0.5rem;
-    font-weight: 500;
-    color: #7a7a7a;
-    text-decoration: inherit;  
-    border-radius: 0.25rem;
+  font-weight: 500;
+  color: #7a7a7a;
+  text-decoration: inherit;  
+  border-radius: 0.25rem;
 }
 
 .navlinks:hover {
@@ -58,16 +57,19 @@ p {
   flex-direction: column; 
   gap: 0.5rem; 
   height: 100%; 
-  width: 20rem;
+  width: 25%;
   @media (min-width: 768px) { 
     display: flex; 
  }
 }
 
 .main-div {
-  padding: 0rem 2rem;
+  padding: 0rem 0rem 0rem 1rem;
   width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow-y: auto;
 }
 
 .main-button {
@@ -81,7 +83,26 @@ p {
   border-style: solid;
 }
 
+.accent-color {
+  color: #FF5D7E;
+}
+
+.muted-button {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 2rem;
+  border-width: 3px; 
+  border-color: #E2E2E5;
+  color: #515196;
+  padding: 0.5rem 2rem;
+  font-weight: 700;
+  border-style: solid;
+}
+
 .main-button:hover {
+  background-color: #FAF2F4;
+}
+
+.muted-button:hover {
   background-color: #FAF2F4;
 }
 
@@ -93,6 +114,7 @@ p {
   cursor: pointer; 
   background-color: #FFFFFF;
 }
+
 .ghost-button:hover {
   background-color: #F4F4F5;
 }
@@ -100,3 +122,58 @@ p {
 .tertiarybg {
   background-color: #F4F4F5;
 }
+
+.calendar-icon {
+  display: flex; 
+  flex-direction: column; 
+  border-radius: 0.75rem; 
+  border-width: 1px; 
+  width: 40px;
+  height: 40px;
+  background-color: hsl(0, 0%, 98%);
+  border-color: #E2E2E5;
+  border-style: solid;
+}
+
+.calendar-month {
+  width: 100%;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  background-color: #FF355E;
+  color: #FFFFFF;
+  font-size: 0.55rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.calendar-day {
+  font-weight: 600;
+  text-align: center;
+}
+
+.feed-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem 10rem 2rem 10rem;
+@media (min-width: 1400px) { 
+  padding: 1rem 20rem 2rem 20rem;
+ }
+}
+
+.feed-item-body {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.card-element {
+  background-color: #FFFFFF;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+

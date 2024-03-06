@@ -3,7 +3,7 @@ const Separator = () => {
     <hr style={{
         border: '0',
         width: '100%',
-        height: '1.25px',
+        height: '1px',
         backgroundColor: '#E2E2E5',
         margin: '0'
     }}/>

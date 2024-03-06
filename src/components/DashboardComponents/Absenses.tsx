@@ -1,22 +1,30 @@
 import { TowerControlIcon } from 'lucide-react';
-import React from 'react'
 
 const Absenses = () => {
-    const data = [{
-
-    }];
+    const data = [];
     
-    if (data) {
+    if (data.length === 0) {
         return (
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
+                gap: '1rem',
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-                <TowerControlIcon className='icon'/>
-                <p>No absences in your teams</p>
+                <TowerControlIcon width={24} height={24} className='secondary-text'/>
+                <p
+                    style={{
+                        fontSize: "0.85rem",
+                        fontWeight: "500",
+                    }}
+                    className="secondary-text"    
+                    >No absences coming up in your team
+                </p>
+                <button className='muted-button'>
+                    View calendar
+                </button>
             </div>
         )
     }

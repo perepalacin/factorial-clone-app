@@ -27,8 +27,7 @@ const Teams = () => {
             flexDirection: "column",
             margin: 0,
             padding: 0,
-            overflow: 'auto',
-            overflowY: "scroll"
+            overflowY: 'auto',
           }}
         >
           <div style={{
