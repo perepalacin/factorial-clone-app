@@ -34,8 +34,9 @@ const Teams = () => {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: '0.75rem'
-          }} className='tertiarybg'>
+            padding: '0.75rem',
+            backgroundColor: '#FAFAFA'
+          }}>
             <p style={{
               fontWeight: '500'
             }}>Mechanicals</p> 
