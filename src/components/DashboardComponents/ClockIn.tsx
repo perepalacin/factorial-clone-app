@@ -42,7 +42,7 @@ const ClockIn = () => {
       }}
       className="secondary-text"    
       >Today's hours</p>
-      <button style={{marginTop: '1rem'}} className="main-button">Clock In</button>
+      <button style={{marginTop: '1rem'}} className="main-button big-button">Clock In</button>
     </div>
   );
 };

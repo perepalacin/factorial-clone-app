@@ -37,6 +37,10 @@ const Inbox = () => {
               flexDirection: "row",
               gap: "1rem",
               alignItems: "center",
+              overflowX: "clip",
+              textOverflow: "ellipsis",
+              whiteSpace: 'nowrap', 
+
             }}
           >
             <item.icon
@@ -46,14 +50,16 @@ const Inbox = () => {
                 backgroundColor: "rgba(201, 241, 245)",
                 borderRadius: "0.75rem",
                 color: "#06838C",
-                minWidth: '7%'
+                minWidth: '1.2rem'
               }}
             />
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
-                width: '100%'
+                overflowX: "clip",
+                textOverflow: "ellipsis",
+                whiteSpace: 'nowrap', 
               }}
             >
               <p

@@ -24,7 +24,7 @@ const Holidays = () => {
     },
 ]
   return (
-    <div style={{overflowY: 'auto'}}>
+    <div style={{overflowY: 'auto', overflowX: 'clip'}}>
         {data.map((item) => {
             return (
                 <div key = {item.name}>

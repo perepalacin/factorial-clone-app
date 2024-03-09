@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ClockIn from "./DashboardComponents/ClockIn";
 import { useState } from "react";
 import Separator from "./ui/Separator";
+import ClockInTableRow from "./ClockInTableRow";
 
 const ClockInPage = () => {
   const navigate = useNavigate();
@@ -229,17 +230,16 @@ const ClockInPage = () => {
             </tr>
             {days.map((item) => {
               return (
-                <tr style={{ textAlign: "left" }}>
-                  <th>
-                    <div>
-                      <p style={{fontWeight: 500, fontSize: '0.9rem'}}>{item.dayNumber} {months[month].shortName}</p>
-                      <p style={{fontSize: '0.8rem'}}>{item.dayName}</p>
-                    </div>
-                  </th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
+                <ClockInTableRow 
+                day={item.dayNumber} 
+                dayName={item.dayName} 
+                month={month} 
+                monthShortName={months[month].shortName} 
+                shifts={[{
+                  startTime: 900,
+                  endTime: 1700,
+                  working: true
+                }]}/>
               );
             })}
           </table>

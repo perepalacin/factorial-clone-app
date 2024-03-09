@@ -28,6 +28,7 @@ const Teams = () => {
             margin: 0,
             padding: 0,
             overflowY: 'auto',
+            overflowX: 'clip',
           }}
         >
           <div style={{

@@ -22,7 +22,7 @@ const Absenses = () => {
                     className="secondary-text"    
                     >No absences coming up in your team
                 </p>
-                <button className='muted-button'>
+                <button className='muted-button big-button'>
                     View calendar
                 </button>
             </div>
