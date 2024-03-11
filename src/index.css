@@ -113,7 +113,7 @@ th {
 }
 
 .small-button {
-  padding: 0.3rem 1rem;
+  padding: 0.2rem 0.8rem;
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -136,7 +136,8 @@ th {
 }
 
 .muted-button:hover {
-  background-color: #FAF2F4;
+  background-color: #F4F4F5;
+  border: 2px solid #AEAEB8;
 }
 
 .secondary-text {
@@ -241,16 +242,29 @@ th {
   color: #07a2ad;
 }
 
-input {
+input{
   background-color: #ffffff;
   border-width: 2px;
   border-color: #E2E2E5;
   color: #515196;
+  font-weight: 600;
   border-style: solid;
   padding: 0.5rem 0rem;
   border-radius: 0.5rem;
-  width: 4rem;
+  width: 4.25rem;
   padding: 0.5rem 0.5rem;
+}
+
+/* Hour */
+input[type="time"]::-webkit-datetime-edit-hour-field {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Minute */
+input[type=time]::-webkit-datetime-edit-minute-field {
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 ::-webkit-input-placeholder {
@@ -260,4 +274,27 @@ input {
 input:focus {
     outline-width: 0;
     border-color: #AEAEB8
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-clear-button {
+  display: none;
+}
+
+table {
+  border-radius: 0.375rem;
+}
+
+td, th {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+table, th, td {
+  border-collapse: separate;
+  border-spacing: 0px;
 }

@@ -9,7 +9,6 @@ import { useEffect } from 'react';
 import Requests from './components/Requests';
 import ClockInPage from './components/ClockInPage';
 
-
 function App() {
 
   useEffect(() => {

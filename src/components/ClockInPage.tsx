@@ -2,6 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon, FileClockIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import ClockIn from "./DashboardComponents/ClockIn";
 import { useState } from "react";
+import '../index.css';
 import Separator from "./ui/Separator";
 import ClockInTableRow from "./ClockInTableRow";
 
@@ -221,25 +222,24 @@ const ClockInPage = () => {
             borderRadius: "0.375rem",
           }}
         >
-          <table style={{ textAlign: "left", padding: "1rem 2rem", fontWeight: 400}}>
+          <table style={{ textAlign: "left", fontWeight: 400}}>
+            <thead>
             <tr className="tertiarybg">
-              <th>Day</th>
-              <th>Shift</th>
-              <th>Worked hours</th>
-              <th>Country</th>
+              <th style={{width: '20%', fontWeight: '500', fontSize: '0.9rem'}}>Day</th>
+              <th style={{width: '40%', fontWeight: '500', fontSize: '0.9rem'}}>Shift</th>
+              <th style={{fontWeight: '500', fontSize: '0.9rem'}}>Worked hours</th>
             </tr>
+            </thead>
             {days.map((item) => {
               return (
                 <ClockInTableRow 
+                key = {item.dayNumber}
                 day={item.dayNumber} 
                 dayName={item.dayName} 
                 month={month} 
                 monthShortName={months[month].shortName} 
-                shifts={[{
-                  startTime: 900,
-                  endTime: 1700,
-                  working: true
-                }]}/>
+                shifts={null}
+                />
               );
             })}
           </table>

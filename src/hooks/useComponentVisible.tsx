@@ -1,5 +1,4 @@
 //This hook allows you to create an element that will dissapear when you click outisde of it!
-
 import { useState, useEffect, useRef } from 'react';
 
 export default function useComponentVisible(initialIsVisible: boolean) {
