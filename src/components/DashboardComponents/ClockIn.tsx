@@ -34,6 +34,7 @@ const ClockIn = () => {
       <InfoIcon width={16} height={16} onMouseEnter={() => setDisplayInfo(true)} onMouseLeave={() => {setDisplayInfo(false)}}/>
           </div>
           {/* TODO: Finish this! */}
+          {/* Spoiler: use the usecomponentvisible hook! */}
           {displayInfo ? <p>Hello world</p> : <></>}
       <p
       style={{

@@ -11,10 +11,18 @@ export default function useComponentVisible(initialIsVisible: boolean) {
         }
     };
 
+    const handlePressEsc = (event: KeyboardEvent) => {
+        if (event.key === "Escape"  || event.code === '0x0001') {
+            setIsComponentVisible(false);
+        }
+    }
+
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
+        document.addEventListener('keydown', handlePressEsc, true);
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
+            document.removeEventListener('keydown', handlePressEsc, true);
         };
     }, []);
 

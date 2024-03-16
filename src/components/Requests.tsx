@@ -63,7 +63,6 @@ const Requests = () => {
                 backgroundColor: "rgba(201, 241, 245)",
                 borderRadius: "0.75rem",
                 color: "#06838C",
-                minWidth: '2.5%'
               }}
               />
             <div

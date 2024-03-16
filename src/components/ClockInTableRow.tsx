@@ -24,15 +24,29 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
   //This state is only necessary if we want to add a button to close the dialog
   //just like the cancel button in the shifts dialog.
   const [dialogVisible, setDialogVisible] = useState(false);
+
+  //This state holds the info for all the shifts in the row
   const [shifts, setShifts] = useState(props.shifts || []);
+  //State for the new shifts created.
   const [newShift, setNewShift] = useState<ShiftsProps>({
     startTime: "",
     endTime: "",
     working: true,
   });
+  const [editedShift, setEditedShift] = useState<Number | undefined>(undefined);
+  //hook to render the shift dialog
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false);
 
+
+  useEffect(() => {
+    for (let i = 0; i< shifts.length; i++) {
+      if (shifts[i].working) {
+        
+      }
+    }
+  }, [shifts]);
+  //function to handle the client validation of the shift input
   const handleShiftChange = (shift: boolean) => {
     const placeholderShift = {
       ...newShift,
@@ -41,6 +55,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
     setNewShift(placeholderShift);
   };
 
+  //Definition of the toast element.
   const notify = () => toast.error("Invalid parameters", {
     position: "bottom-center",
     autoClose: 3000,
@@ -52,13 +67,16 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
     transition: Slide,
   });
 
+  //Funciton that handles the change of any input in the row 
   const handleInputChange = (
     value: string,
     input: string,
+    //Key is only used to edit already exisiting shifts
     key: number | null
   ) => {
+    //if we have a key == edit shift
     if (key !== null) {
-      console.log("here");
+      setEditedShift(key);
       const auxShifts = [...shifts];
       if (input === "start") {
       console.log("start");
@@ -72,6 +90,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
         return null;
       }
     } else {
+      //Case where we dont have a key == create shift
       if (input === "start") {
         const auxShift: ShiftsProps = {
           ...newShift,
@@ -90,27 +109,21 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
     }
   };
 
+  //function to delete a shift
   const handleDeleteShift = (key: number) => {
     const auxShifts = shifts.filter((item, index) => index !== key);
     setShifts(auxShifts);
   }
 
+  //Function to submit a new shift
   const handleShiftSubmit = () => {
     if (
-      !newShift.startTime ||
-      !newShift.endTime ||
-      newShift.endTime < newShift.startTime
-    ) {
-      //TODO: Toast error: Wrong parameters;
-      notify();
-      return null;
-    } else if (
       shifts.length !== 0 &&
       shifts[shifts.length - 1].endTime < newShift.startTime &&
       newShift.startTime < newShift.endTime
     ) {
       const emptyShift: ShiftsProps = {
-        startTime: "",
+        startTime: newShift.endTime.slice(0, -1) + Number(newShift.endTime.slice(-1)+1).toString(),
         endTime: "",
         working: true,
       };
@@ -122,7 +135,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
     } else if (shifts.length === 0 && newShift.startTime < newShift.endTime) {
       setShifts([newShift]);
       const emptyShift: ShiftsProps = {
-        startTime: "",
+        startTime: newShift.endTime.slice(0, -1) + Number(newShift.endTime.slice(-1)+1).toString(),
         endTime: "",
         working: true,
       };
@@ -135,6 +148,8 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
     notify();
     return null;
   };
+
+
   return (
     <tbody>
       <ToastContainer/>
@@ -192,6 +207,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
                 />
                 <button className="muted-button small-button" style={{padding: '0rem 0.25rem'}} onClick={() => {handleDeleteShift(key)}}><TrashIcon width={16} /></button>
                   {item.working ? <></> : <p style={{fontSize: '0.8rem', fontWeight: '600', padding: '0.1rem 0.5rem', borderRadius: '0.375rem', backgroundColor: '#E2E2E5'}}>Break</p>}
+                  {key === editedShift ? <button className="main-button small-button" >Save</button> : <></>}
               </div>
             );
           })}

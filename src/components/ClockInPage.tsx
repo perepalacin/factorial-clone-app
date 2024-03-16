@@ -1,17 +1,21 @@
 import { ChevronLeftIcon, ChevronRightIcon, FileClockIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import ClockIn from "./DashboardComponents/ClockIn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../index.css';
-import Separator from "./ui/Separator";
 import ClockInTableRow from "./ClockInTableRow";
+import { getDaysOfMonth } from "../utils/dateTools";
 
 const ClockInPage = () => {
+
   const navigate = useNavigate();
+  //We get the actual date
   const today = new Date();
+  //We get the parameters from the url
   const { yearId, monthId } = useParams();
+  //if the parameters are missing, we hardcode the actual month.
   const [year, setYear] = useState(Number(yearId || today.getFullYear()));
-  const [month, seMonth] = useState(Number(monthId || today.getMonth()));
+  const [month, setMonth] = useState(Number(monthId || today.getMonth()));
   //TODO: If yearId and monthID are missing.
   //naviate to the current date.
 
@@ -66,22 +70,32 @@ const ClockInPage = () => {
     }
   ];
 
-  function getDaysOfMonth(yearNum: number, monthNum: number) {
-    const daysInMonth = new Date(yearNum, monthNum, 0).getDate();
-    const daysArray = [];
-  
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(yearNum, monthNum - 1, day);
-      const dayNumber = date.getDate();
-      const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-  
-      daysArray.push({ dayNumber, dayName });
+  //We create a function to handle the navigation between months
+  const handleMonthChange = (forward: boolean) => {
+    if (forward === true) {
+      if (month === 11) {
+        setMonth(0);
+        setYear(prevYear => prevYear + 1);
+      } else {
+        setMonth(prevMonth => prevMonth + 1);
+      }
+    } else {
+      if (month === 0) {
+        setMonth(11);
+        setYear(prevYear => prevYear - 1);
+      } else {
+        setMonth(prevMonth => prevMonth - 1);
+      }
     }
-  
-    return daysArray;
   }
 
-  const days = getDaysOfMonth(year, month);
+  //We use a useEffect to handle with the asyncronous nature of state change;
+  useEffect(() => {
+    navigate(`/clock-in/${year.toString()}/${month.toString()}`);
+  }, [month, year]);
+
+
+  const days = getDaysOfMonth(year, month+1);
 
 
   return (
@@ -96,9 +110,9 @@ const ClockInPage = () => {
             alignItems: "center",
           }}
         >
-          <ChevronLeftIcon className="icon" />
-          <p style={{ fontWeight: "500" }}>{months[month].longName}</p>
-          <ChevronRightIcon className="icon" />
+          <ChevronLeftIcon className="icon" onClick={() => handleMonthChange(false)} />
+          <p style={{ fontWeight: "500", width: '6rem', textAlign: 'center'}}>{months[month].longName}</p>
+          <ChevronRightIcon className="icon" onClick={() => handleMonthChange(true)}/>
         </div>
         <div
           style={{

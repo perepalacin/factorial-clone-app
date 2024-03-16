@@ -1,36 +1,36 @@
 import {
-  CheckCircleIcon,
+  CalendarOffIcon,
   ClockIcon,
-  CreditCardIcon,
-  FlagIcon,
-  FolderOpenIcon,
   HomeIcon,
   InboxIcon,
   PalmtreeIcon,
-  SearchIcon,
-  StoreIcon,
   UserIcon,
+  UsersIcon,
 } from "lucide-react";
+
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import "../index.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
+  // const navigate = useNavigate();
   const today = new Date();
   const clockInLink = `/clock-in/${today.getFullYear().toString()}/${today.getMonth().toString()}`;
 
   const [currentLink, setCurrentLink] = useState("/dashboard");
+
+  useEffect(() => {
+    console.log("here");
+    // navigate(0);
+  }, [currentLink]);
+
   return (
     <div className="pcnavbar">
       <img
-        src="src/assets/factorial.png"
+        src="/src/assets/factorial.png"
         alt="logo of the company"
         width={200}
       />
-      <div>
-        <input placeholder="Search..." />
-        <SearchIcon />
-      </div>
       <Router>
         <div
           style={{
@@ -45,7 +45,7 @@ const Sidebar = () => {
                 currentLink === "/dashboard" ? "#ebebed" : "#F4F4F5",
               color: currentLink === "/dashboard" ? "#000000" : "#7a7a7a",
             }}
-            to="/dashboard"
+            to={"/dashboard"}
             className="navlinks"
             onClick={() => setCurrentLink("/dashboard")}
           >
@@ -57,7 +57,7 @@ const Sidebar = () => {
               backgroundColor: currentLink === "/inbox" ? "#ebebed" : "#F4F4F5",
               color: currentLink === "/inbox" ? "#000000" : "#7a7a7a",
             }}
-            to="/inbox"
+            to={"/inbox"}
             className="navlinks"
             onClick={() => setCurrentLink("/inbox")}
           >
@@ -66,7 +66,7 @@ const Sidebar = () => {
           </Link>
           <p
             style={{
-              fontWeight: "600",
+              fontWeight: "600", fontSize: '0.8rem'
             }}
           >
             YOU
@@ -75,7 +75,11 @@ const Sidebar = () => {
             <UserIcon className="icon" />
             Me
           </Link>
-          <Link to={clockInLink} className="navlinks">
+          <Link 
+            to={clockInLink} 
+            className="navlinks"
+            onClick={() => setCurrentLink("/clockin")}
+          >
             <ClockIcon className="icon" />
             Clock in
           </Link>
@@ -83,21 +87,20 @@ const Sidebar = () => {
             <PalmtreeIcon className="icon" />
             Time off
           </Link>
-          <Link to="/e" className="navlinks">
-            <CheckCircleIcon className="icon" />
-            Tasks
+          <p
+            style={{
+              fontWeight: "600", fontSize: '0.8rem'
+            }}
+          >
+            YOUR COMPANY
+          </p>
+          <Link to="/org-chart" className="navlinks">
+            <UsersIcon className="icon" />
+            Org Chart
           </Link>
-          <Link to="/e" className="navlinks">
-            <FolderOpenIcon className="icon" />
-            My documents
-          </Link>
-          <Link to="/e" className="navlinks">
-            <FlagIcon className="icon" />
-            My goals
-          </Link>
-          <Link to="/e" className="navlinks">
-            <CreditCardIcon className="icon" />
-            My expenses
+          <Link to="/absences" className="navlinks">
+            <CalendarOffIcon className="icon" />
+            Absences
           </Link>
         </div>
       </Router>
