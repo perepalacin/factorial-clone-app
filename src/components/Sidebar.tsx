@@ -31,7 +31,6 @@ const Sidebar = () => {
         alt="logo of the company"
         width={200}
       />
-      <Router>
         <div
           style={{
             display: "flex",
@@ -103,7 +102,6 @@ const Sidebar = () => {
             Absences
           </Link>
         </div>
-      </Router>
     </div>
   );
 };

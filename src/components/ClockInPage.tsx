@@ -4,7 +4,7 @@ import ClockIn from "./DashboardComponents/ClockIn";
 import { useEffect, useState } from "react";
 import '../index.css';
 import ClockInTableRow from "./ClockInTableRow";
-import { getDaysOfMonth } from "../utils/dateTools";
+import { getDaysOfMonth, longFormatter, shortFormatter } from "../utils/dateTools";
 
 const ClockInPage = () => {
 
@@ -19,56 +19,6 @@ const ClockInPage = () => {
   //TODO: If yearId and monthID are missing.
   //naviate to the current date.
 
-  const months = [
-    {
-      longName: "January",
-      shortName: "Jan"
-    },
-    {
-      longName: "February",
-      shortName: "Feb"
-    },
-    {
-      longName: "March",
-      shortName: "Mar"
-    },
-    {
-      longName: "April",
-      shortName: "Apr"
-    },
-    {
-      longName: "May",
-      shortName: "May"
-    },
-    {
-      longName: "June",
-      shortName: "Jun"
-    },
-    {
-      longName: "July",
-      shortName: "Jul"
-    },
-    {
-      longName: "August",
-      shortName: "Aug"
-    },
-    {
-      longName: "September",
-      shortName: "Sep"
-    },
-    {
-      longName: "October",
-      shortName: "Oct"
-    },
-    {
-      longName: "November",
-      shortName: "Nov"
-    },
-    {
-      longName: "Desember",
-      shortName: "Des"
-    }
-  ];
 
   //We create a function to handle the navigation between months
   const handleMonthChange = (forward: boolean) => {
@@ -95,7 +45,7 @@ const ClockInPage = () => {
   }, [month, year]);
 
 
-  const days = getDaysOfMonth(year, month+1);
+  const days = getDaysOfMonth(year, month);
 
 
   return (
@@ -111,7 +61,7 @@ const ClockInPage = () => {
           }}
         >
           <ChevronLeftIcon className="icon" onClick={() => handleMonthChange(false)} />
-          <p style={{ fontWeight: "500", width: '6rem', textAlign: 'center'}}>{months[month].longName}</p>
+          <p style={{ fontWeight: "500", width: '6rem', textAlign: 'center'}}>{longFormatter.format(days[0])}</p>
           <ChevronRightIcon className="icon" onClick={() => handleMonthChange(true)}/>
         </div>
         <div
@@ -239,7 +189,7 @@ const ClockInPage = () => {
           <table style={{ textAlign: "left", fontWeight: 400}}>
             <thead>
             <tr className="tertiarybg">
-              <th style={{width: '20%', fontWeight: '500', fontSize: '0.9rem'}}>Day</th>
+              <th style={{padding: '0.5rem', width: '20%', fontWeight: '500', fontSize: '0.9rem'}}>Day</th>
               <th style={{width: '40%', fontWeight: '500', fontSize: '0.9rem'}}>Shift</th>
               <th style={{fontWeight: '500', fontSize: '0.9rem'}}>Worked hours</th>
             </tr>
@@ -247,11 +197,11 @@ const ClockInPage = () => {
             {days.map((item) => {
               return (
                 <ClockInTableRow 
-                key = {item.dayNumber}
-                day={item.dayNumber} 
-                dayName={item.dayName} 
+                key = {item.getDate()}
+                day={item.getDate()} 
+                dayName={item.toLocaleDateString('en', {weekday: 'long'})} 
                 month={month} 
-                monthShortName={months[month].shortName} 
+                monthShortName={shortFormatter.format(today.getMonth())} 
                 shifts={null}
                 />
               );

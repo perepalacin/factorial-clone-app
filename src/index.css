@@ -76,7 +76,7 @@ th {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  min-height: 100%;
+  min-height: 100vh;
   overflow-y: auto;
 }
 
@@ -299,11 +299,17 @@ table {
 }
 
 td, th {
-  padding: 0.5rem 1rem;
+  /* padding: 0.5rem 0.5rem; */
+  padding: 0.5rem 0rem;
+
   border-bottom: 1px solid #ddd;
 }
 
 table, th, td {
   border-collapse: separate;
   border-spacing: 0px;
+}
+
+.timeline-table {
+  border: 1px solid #ddd;
 }

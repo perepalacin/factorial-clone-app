@@ -154,7 +154,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
     <tbody>
       <ToastContainer/>
       <tr style={{ textAlign: "left", backgroundColor: props.dayName === "Saturday" || props.dayName === "Sunday" ? '#FAFAFA' : '#FFFFFF'}}>
-        <th>
+        <th style={{padding: '0.5rem'}}>
             <p style={{ fontWeight: 500, fontSize: "0.9rem" }}>
               {props.day} {props.monthShortName}
             </p>
