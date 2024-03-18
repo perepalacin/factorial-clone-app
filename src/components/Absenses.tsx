@@ -1,6 +1,8 @@
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { getDaysOfMonth, longFormatter, shortFormatter } from "../utils/dateTools";
+import HoverDialog from "./ui/AbsencesColorSquare";
+import AbsencesColorSquare from "./ui/AbsencesColorSquare";
 
 const dummyData = [
   {
@@ -21,22 +23,50 @@ const dummyData = [
   },
 ];
 
+const colorCode = [{
+  color: "rgb(7, 162, 173)",
+  type: "Time off"
+},
+{
+  color: "rgb(0, 140, 55)",
+  type: "Overtime compensation"
+},
+{
+  color: "rgb(135, 127, 237)",
+  type: "Maternity leave", //this should be an enum!
+},
+{
+  color: 'rgb(71, 167, 255)',
+  type: "Medical absence",
+}
+];
+
 const dummyHolidays = [
   {
     name: "Adrian Romero Galeon",
     startDate: new Date("03-12-2024"),
     endDate: new Date("03-21-2024"),
-    type: "Maternity Leave"
+    type: "Maternity leave"
   },
   {
     name: "Sara Ubeda Lopez",
     startDate: new Date("03-03-2024"),
     endDate: new Date("03-18-2024"),
+    type: "Medical absence",
+  },
+  {
+    name: "Alex Bamonte Lopez",
+    startDate: new Date("03-06-2024"),
+    endDate: new Date("03-10-2024"),
+    type: "Time off",
+  },
+  {
+    name: "Alex Bamonte Lopez",
+    startDate: new Date("03-012-2024"),
+    endDate: new Date("03-16-2024"),
+    type: "Overtime compensation",
   }
 ];
-console.log(dummyHolidays);
-//TODO:Types: Maternity leave, holidays, overtime compensation, paid leave
-//Create an array with a color for all the types and assign it to the style
 
 const Absenses = () => {
   const today = new Date();
@@ -63,6 +93,7 @@ const Absenses = () => {
     }
   };
   
+  console.log("Rerun!");
   
   return (
     <div className="main-div">
@@ -131,7 +162,9 @@ const Absenses = () => {
                       <p
                         style={{
                           fontSize: "0.8rem",
-                          padding: "0.15rem 0.35rem",
+                          padding: "0.35rem 0.35rem",
+                          height: '1rem',
+                          width: '1rem',
                           borderRadius: "2rem",
                           backgroundColor:
                             item.getDate() === today.getDate() &&
@@ -189,10 +222,16 @@ const Absenses = () => {
                     </td>
                     {days.map((dayItem) => {
                       var color = 'rgba(0, 0, 0, 0)';
+                      var bgOpacity = '1';
+                      var holidayLabel = "";
                       for (let i = 0; i < dummyHolidays.length; i++) {
                         if (item.name === dummyHolidays[i].name) {
                           if (dummyHolidays[i].startDate <= dayItem && dayItem <= dummyHolidays[i].endDate) {
-                            color = 'rgba(12, 12, 12, 0.26)';
+                            holidayLabel = dummyHolidays[i].type;
+                            color = colorCode.find(item => item.type === dummyHolidays[i].type)?.color || 'rgba(0, 0, 0, 0)';
+                            if (dayItem.toLocaleDateString('en', {weekday: 'long'}) === "Saturday" || dayItem.toLocaleDateString('en', {weekday: 'long'}) === "Sunday") {
+                              bgOpacity = '0.4';
+                            }
                           }
                         }
                       }
@@ -211,14 +250,7 @@ const Absenses = () => {
                                 : "#FFFFFF",
                           }}
                         >
-                          <div
-                            style={{
-                              minHeight: "1.5rem",
-                              backgroundColor: color
-                            }}
-                          >
-                            {" "}
-                          </div>
+                          <AbsencesColorSquare label={holidayLabel} color={color} opacity={bgOpacity} />
                         </td>
                       );
                     })}

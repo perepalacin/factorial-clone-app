@@ -25,13 +25,13 @@ const Sidebar = () => {
   }, [currentLink]);
 
   return (
-    <div className="pcnavbar">
+    <nav className="pcnavbar">
       <img
         src="/src/assets/factorial.png"
         alt="logo of the company"
         width={200}
       />
-        <div
+        <ul
           style={{
             display: "flex",
             flexDirection: "column",
@@ -101,8 +101,8 @@ const Sidebar = () => {
             <CalendarOffIcon className="icon" />
             Absences
           </Link>
-        </div>
-    </div>
+        </ul>
+    </nav>
   );
 };
 
