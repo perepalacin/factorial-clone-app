@@ -1,4 +1,4 @@
-import { ClockIcon, InboxIcon, LineChart } from 'lucide-react'
+import { ClockIcon, InboxIcon, LineChartIcon } from 'lucide-react'
 import '../index.css'
 import Separator from './ui/Separator';
 
@@ -13,7 +13,7 @@ const Requests = () => {
     },
     {
       //TODO: Add another category to select the icon to display!
-      icon: LineChart,
+      icon: LineChartIcon,
       title: "You have a pending review to complete for Pere Palacín Pallàs",
       subtitle: "As part of our ongoing commitment to individual and team development in our Self-Assessment Survey. This is an opportunity for you to reflect on your own goals and performance.",
     },

@@ -1,0 +1,15 @@
+.react-flow__handle {
+  opacity: 0;
+  }
+
+  .react-flow__node {
+    padding: 10px 10px;
+    width: auto;
+    border-width: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: monospace;
+  }
+  .react-flow__node-default.selectable.selected, .react-flow__node-default.selectable:focus, .react-flow__node-default.selectable:focus-visible, .react-flow__node-input.selectable.selected, .react-flow__node-input.selectable:focus, .react-flow__node-input.selectable:focus-visible, .react-flow__node-output.selectable.selected, .react-flow__node-output.selectable:focus, .react-flow__node-output.selectable:focus-visible, .react-flow__node-group.selectable.selected, .react-flow__node-group.selectable:focus, .react-flow__node-group.selectable:focus-visible{
+    box-shadow: none;
+  }

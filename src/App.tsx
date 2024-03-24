@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import Requests from "./components/Requests";
 import ClockInPage from "./components/ClockInPage";
 import Absenses from "./components/Absenses";
+import OrgChart from "./components/OrgChart";
 
 function App() {
   useEffect(() => {
@@ -34,6 +35,7 @@ function App() {
             key={3}
           />
           <Route path="/absences" element={<Absenses />} key={3} />
+          <Route path="/org-chart" element={<OrgChart />} key = {4} />
         </Routes>
       </div>
     </BrowserRouter>
