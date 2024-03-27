@@ -96,8 +96,8 @@ const Absenses = () => {
   console.log("Rerun!");
   
   return (
-    <div className="main-div">
-      <div className="card-element" style={{ padding: "2rem 0rem" }}>
+    <div className="main-div" style={{ overflowX: 'hidden' }}>
+      <div className="card-element" style={{ padding: "2rem 0rem"}}>
         <div
           style={{
             display: "flex",
@@ -138,7 +138,7 @@ const Absenses = () => {
                   }}
                   className="timeline-table"
                 >
-                  <SearchIcon className="iconz" />{" "}
+                  <SearchIcon className="icon" style={{color: "#7a7a7a"}} />{" "}
                   <input
                     className="input-search"
                     style={{ width: "150px" }}

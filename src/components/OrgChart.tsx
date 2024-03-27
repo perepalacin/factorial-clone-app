@@ -104,7 +104,7 @@ const OrgChart = () => {
           </div>
           <button className="muted-button small-button">Find me</button>
         </div>
-        <div style={{ width: "100%", display: 'flex', flexDirection: 'column', height: '80vh' }}>
+        <div style={{ width: "100%", display: 'flex', flexDirection: 'column', height: '70vh' }}>
           <ReactFlow
             nodeTypes={nodeTypes}
             nodes={nodes}

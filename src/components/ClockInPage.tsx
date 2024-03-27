@@ -79,7 +79,7 @@ const ClockInPage = () => {
             <FileClockIcon width={30} height={30} className="accent-color" />
             <p style={{ fontWeight: 600, fontSize: "1.5rem" }}>Clock in</p>
             <p>
-              Rescord the hours you work every day. Your
+              Record the hours you work every day. Your
               <br />
               timesheet will then be approved by your manager.
             </p>

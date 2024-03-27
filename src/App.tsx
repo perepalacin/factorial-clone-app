@@ -12,6 +12,7 @@ import Requests from "./components/Requests";
 import ClockInPage from "./components/ClockInPage";
 import Absenses from "./components/Absenses";
 import OrgChart from "./components/OrgChart";
+import TimeOff from "./components/TimeOff";
 
 function App() {
   useEffect(() => {
@@ -36,6 +37,16 @@ function App() {
           />
           <Route path="/absences" element={<Absenses />} key={3} />
           <Route path="/org-chart" element={<OrgChart />} key = {4} />
+          <Route
+            path="/user-details"
+            element={<ClockInPage />}
+            key={5}
+          />
+          <Route
+            path="/time-off"
+            element={<TimeOff />}
+            key={6}
+          />
         </Routes>
       </div>
     </BrowserRouter>

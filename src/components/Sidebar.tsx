@@ -8,16 +8,16 @@ import {
   UsersIcon,
 } from "lucide-react";
 
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useLocation } from "react-router-dom";
 import "../index.css";
 import { useEffect, useState } from "react";
 
 const Sidebar = () => {
-  // const navigate = useNavigate();
+  const pathname = useLocation().pathname;
   const today = new Date();
   const clockInLink = `/clock-in/${today.getFullYear().toString()}/${today.getMonth().toString()}`;
 
-  const [currentLink, setCurrentLink] = useState("/dashboard");
+  const [currentLink, setCurrentLink] = useState("/pathame");
 
   useEffect(() => {
     console.log("here");
@@ -41,24 +41,22 @@ const Sidebar = () => {
           <Link
             style={{
               backgroundColor:
-                currentLink === "/dashboard" ? "#ebebed" : "#F4F4F5",
-              color: currentLink === "/dashboard" ? "#000000" : "#7a7a7a",
+                pathname === "/dashboard" ? "#ebebed" : "#F4F4F5",
+              color: pathname === "/dashboard" ? "#000000" : "#7a7a7a",
             }}
             to={"/dashboard"}
             className="navlinks"
-            onClick={() => setCurrentLink("/dashboard")}
           >
             <HomeIcon className="icon" />
             Dashboard
           </Link>
           <Link
             style={{
-              backgroundColor: currentLink === "/inbox" ? "#ebebed" : "#F4F4F5",
-              color: currentLink === "/inbox" ? "#000000" : "#7a7a7a",
+              backgroundColor: pathname === "/inbox" ? "#ebebed" : "#F4F4F5",
+              color: pathname === "/inbox" ? "#000000" : "#7a7a7a",
             }}
             to={"/inbox"}
             className="navlinks"
-            onClick={() => setCurrentLink("/inbox")}
           >
             <InboxIcon className="icon" />
             Inbox
@@ -70,19 +68,34 @@ const Sidebar = () => {
           >
             YOU
           </p>
-          <Link to="/d" className="navlinks">
+          <Link 
+            to="/user-details" 
+            className="navlinks"
+            style={{
+              backgroundColor: pathname === "/user-details" ? "#ebebed" : "#F4F4F5",
+              color: pathname === "/user-details" ? "#000000" : "#7a7a7a",
+            }}>
             <UserIcon className="icon" />
             Me
           </Link>
           <Link 
+            style={{
+              backgroundColor: pathname.includes('/clock-in') === true ? "#ebebed" : "#F4F4F5",
+              color: pathname.includes('/clock-in') === true ? "#000000" : "#7a7a7a",
+            }}
             to={clockInLink} 
             className="navlinks"
-            onClick={() => setCurrentLink("/clockin")}
           >
             <ClockIcon className="icon" />
             Clock in
           </Link>
-          <Link to="/e" className="navlinks">
+          <Link 
+            style={{
+              backgroundColor: pathname === "/time-off" ? "#ebebed" : "#F4F4F5",
+              color: pathname === "/time-off" ? "#000000" : "#7a7a7a",
+            }}
+          to="/time-off"
+          className="navlinks">
             <PalmtreeIcon className="icon" />
             Time off
           </Link>
@@ -93,11 +106,22 @@ const Sidebar = () => {
           >
             YOUR COMPANY
           </p>
-          <Link to="/org-chart" className="navlinks">
+          <Link 
+            style={{
+              backgroundColor: pathname === "/org-chart" ? "#ebebed" : "#F4F4F5",
+              color: pathname === "/org-chart" ? "#000000" : "#7a7a7a",
+            }}
+          to="/org-chart"
+          className="navlinks">
             <UsersIcon className="icon" />
             Org Chart
           </Link>
-          <Link to="/absences" className="navlinks">
+          <Link 
+            style={{
+              backgroundColor: pathname === "/absences" ? "#ebebed" : "#F4F4F5",
+              color: pathname === "/absences" ? "#000000" : "#7a7a7a",
+            }}
+            to="/absences" className="navlinks">
             <CalendarOffIcon className="icon" />
             Absences
           </Link>
