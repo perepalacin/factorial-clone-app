@@ -189,9 +189,9 @@ const ClockInPage = () => {
           <table style={{ textAlign: "left", fontWeight: 400}}>
             <thead>
             <tr className="tertiarybg">
-              <th style={{padding: '0.5rem', width: '20%', fontWeight: '500', fontSize: '0.9rem'}}>Day</th>
-              <th style={{width: '40%', fontWeight: '500', fontSize: '0.9rem'}}>Shift</th>
-              <th style={{fontWeight: '500', fontSize: '0.9rem'}}>Worked hours</th>
+              <th className="table-row" style={{padding: '0.5rem', width: '20%', fontWeight: '500', fontSize: '0.9rem'}}>Day</th>
+              <th className="table-row" style={{width: '40%', fontWeight: '500', fontSize: '0.9rem'}}>Shift</th>
+              <th className="table-row" style={{fontWeight: '500', fontSize: '0.9rem'}}>Worked hours</th>
             </tr>
             </thead>
             {days.map((item) => {

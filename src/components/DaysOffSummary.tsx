@@ -11,7 +11,7 @@ const DaysOffSummary = (props: DaysOffSummaryProps) => {
         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '1rem'}}>
             <InfoIcon size={14}/>
             <div style={{textAlign: 'center'}}>
-            <p style={{fontSize: '0.7rem', fontWeight: '600'}}>Days off autorization</p>
+            <p style={{fontSize: '0.9rem', fontWeight: '600'}}>Days off autorization</p>
             <p style={{fontSize: '0.7rem'}} className="secondary-text">From 1st of Jan to 31 Dec {props.year}</p>
             </div>
             <p style={{fontSize: '0.7rem', fontWeight: '600', backgroundColor: '#E2E2E5', padding: '0.1rem 0.4rem', borderRadius: '0.375rem'}}>Days</p>

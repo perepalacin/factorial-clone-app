@@ -13,6 +13,9 @@ import ClockInPage from "./components/ClockInPage";
 import Absenses from "./components/Absenses";
 import OrgChart from "./components/OrgChart";
 import TimeOff from "./components/TimeOff";
+import 'react-day-picker/dist/style.css';
+// import './day-picker.css'; 
+
 
 function App() {
   useEffect(() => {

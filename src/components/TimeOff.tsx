@@ -2,6 +2,8 @@ import { PlusIcon } from "lucide-react"
 import Separator from "./ui/Separator"
 import DaysOffSummary from "./DaysOffSummary"
 import DaysOffHistory from "./DaysOffHistory"
+import YearCalendar from "./TimeOff/YearCalendar"
+import RequestTimeOffDialog from "./TimeOff/RequestTimeOffDialog"
 
 const TimeOff = () => {
   return (
@@ -11,12 +13,9 @@ const TimeOff = () => {
           <></>
           <div style={{display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center'}}>
             <img src="src/assets/image-lsoyucoe.png" width={36} style={{borderRadius: '0.375rem'}}/>
-            <p>Pere Palacin Pallàs</p>
+            <p style={{fontWeight: '600'}}>Pere Palacin Pallàs</p>
           </div>
-          <button className="main-button big-button" style={{display: 'flex', flexDirection: 'row', gap: '0.5rem', alignItems: 'center'}}>
-            <PlusIcon className="icon" />
-            <p>Request time off</p>
-          </button>
+          <RequestTimeOffDialog />
         </div>
         <Separator />
         <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -24,7 +23,9 @@ const TimeOff = () => {
             <DaysOffSummary year={2024}/>
             <DaysOffHistory />
           </div>
-
+          <div style={{width: '100%', minHeight: '60%', maxHeight: '60%'}}>
+            <YearCalendar />
+          </div>
         </div>
       </div>
     </div>

@@ -136,7 +136,7 @@ const Absenses = () => {
                     zIndex: "10",
                     backgroundColor: '#F4F4F5'
                   }}
-                  className="timeline-table"
+                  className="timeline-table table-row"
                 >
                   <SearchIcon className="icon" style={{color: "#7a7a7a"}} />{" "}
                   <input
@@ -148,6 +148,7 @@ const Absenses = () => {
                 {days.map((item) => {
                   return (
                     <th
+                    className="table-row"
                       style={{
                         padding: "0.5rem 0.5rem",
                         backgroundColor:

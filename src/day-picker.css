@@ -1,0 +1,6 @@
+.rdp-day_today:not(.rdp-day_outside) {
+    color: red;
+  }
+.rdp {
+  --rdp-cell-size: 10px; /* Size of the day cells. */
+}
