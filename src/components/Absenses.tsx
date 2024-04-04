@@ -58,7 +58,7 @@ const dummyHolidays = [
     name: "Alex Bamonte Lopez",
     startDate: new Date("03-06-2024"),
     endDate: new Date("03-10-2024"),
-    type: "Time off",
+    type: "Time off (PTO or NPTO)",
   },
   {
     name: "Alex Bamonte Lopez",

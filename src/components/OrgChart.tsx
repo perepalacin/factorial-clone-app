@@ -3,7 +3,6 @@ import "reactflow/dist/style.css";
 import "../org-chart.css";
 import EmployeeNode from "./OrgChart/EmployeeNode";
 import ReactFlow from "reactflow";
-import { useState } from "react";
 import { SearchIcon } from "lucide-react";
 
 const OrgChart = () => {

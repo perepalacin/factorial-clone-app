@@ -266,6 +266,22 @@ input{
   padding: 0.5rem 0.5rem;
 }
 
+textarea{
+  background-color: #ffffff;
+  border-width: 2px;
+  border-color: #E2E2E5;
+  color: #515196;
+  font-weight: 600;
+  border-style: solid;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+}
+
+textarea:focus {
+  outline-width: 0;
+  border-color: #AEAEB8
+}
+
 /* Hour */
 input[type="time"]::-webkit-datetime-edit-hour-field {
   font-weight: 600;
