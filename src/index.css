@@ -266,6 +266,19 @@ input{
   padding: 0.5rem 0.5rem;
 }
 
+.dropdown-btn{
+  background-color: #ffffff;
+  border-width: 2px;
+  border-color: #E2E2E5;
+  font-weight: 600;
+  border-style: solid;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;;
+}
+
 textarea{
   background-color: #ffffff;
   border-width: 2px;
@@ -360,12 +373,12 @@ select {
 
 select:focus {
   outline: none;
+  border-color: #FF355E;
 }
 
-select::after {
-  padding: 1rem 1rem;
+.dropdown-option {
+  margin: 0.2rem;
 }
-
 
 
 select::before {
