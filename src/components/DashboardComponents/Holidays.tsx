@@ -1,4 +1,3 @@
-import React from 'react'
 import Separator from '../ui/Separator'
 import CalendarCustomIcon from '../ui/CalendarCustomIcon'
 

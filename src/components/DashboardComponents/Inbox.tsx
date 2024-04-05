@@ -1,5 +1,4 @@
-import { ClockIcon, LineChart, TrendingUp } from "lucide-react";
-import React from "react";
+import { ClockIcon, LineChart } from "lucide-react";
 import "../../index.css";
 
 const Inbox = () => {

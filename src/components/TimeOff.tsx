@@ -1,4 +1,3 @@
-import { PlusIcon } from "lucide-react"
 import Separator from "./ui/Separator"
 import DaysOffSummary from "./DaysOffSummary"
 import DaysOffHistory from "./DaysOffHistory"

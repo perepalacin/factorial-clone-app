@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { addDays, format } from "date-fns";
+import { addDays } from "date-fns";
 import { DateRange, DayPicker } from "react-day-picker";
 import { shortFormatter } from "../../utils/dateTools";
 
@@ -36,20 +36,7 @@ export default function SelectDateRange() {
     to: addDays(today, 4),
   };
   const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
-  const [dialogVisible, isDialogVisible] = useState(true);
-
-  let footer = <p>Please pick the first day.</p>;
-  if (range?.from) {
-    if (!range.to) {
-      footer = <p>{format(range.from, "PPP")}</p>;
-    } else if (range.to) {
-      footer = (
-        <p>
-          {format(range.from, "PPP")}–{format(range.to, "PPP")}
-        </p>
-      );
-    }
-  }
+  const [dialogVisible, _isDialogVisible] = useState(true);
 
   return (
     <div>

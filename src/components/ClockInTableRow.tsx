@@ -1,5 +1,5 @@
-import { PlusIcon, Trash2Icon, TrashIcon } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import { PlusIcon, TrashIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import Separator from "./ui/Separator";
 import "../index.css"
 import useComponentVisible from "../hooks/useComponentVisible";
@@ -111,7 +111,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
 
   //function to delete a shift
   const handleDeleteShift = (key: number) => {
-    const auxShifts = shifts.filter((item, index) => index !== key);
+    const auxShifts = shifts.filter((_item, index) => index !== key);
     setShifts(auxShifts);
   }
 

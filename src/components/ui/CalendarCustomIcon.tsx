@@ -1,7 +1,4 @@
 import '../../index.css'
-
-import React from 'react'
-
 interface CalendarIconProps {
     day: number,
     month: string,

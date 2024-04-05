@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { DateRange, DayPicker } from 'react-day-picker';
+import {  DateRange, DayPicker } from 'react-day-picker';
 
 const css = `
   .my-selected:not([disabled]) { 
@@ -15,7 +14,7 @@ const css = `
   }
 `;
 
-const dummyHolidays = [
+const dummyHolidays: DateRange[] = [
     {
       from: new Date("03-12-2024"),
       to: new Date("03-21-2024"),
@@ -44,10 +43,15 @@ export default function YearCalendar() {
                 <DayPicker
                 key={item}
                 mode='range'
-                defaultMonth={new Date(year, item)}
                 disableNavigation
+                defaultMonth={new Date(year, item)}
                 ISOWeek
-                selected={dummyHolidays}
+                modifiers={{
+                  selected: dummyHolidays.map(holiday => ({
+                    from: holiday.from,
+                    to: holiday.to,
+                  })),
+                }}
                 modifiersClassNames={{
                     selected: 'my-selected',
                     today: 'my-today'

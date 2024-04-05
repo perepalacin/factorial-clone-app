@@ -1,7 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { getDaysOfMonth, longFormatter, shortFormatter } from "../utils/dateTools";
-import HoverDialog from "./ui/AbsencesColorSquare";
+import { useState } from "react";
+import { getDaysOfMonth, longFormatter } from "../utils/dateTools";
 import AbsencesColorSquare from "./ui/AbsencesColorSquare";
 
 const dummyData = [

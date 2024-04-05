@@ -50,7 +50,7 @@ const RequestTimeOffDialog = () => {
                     <option value="Maternity">Paid leave: Maternity leave - Does not discount time and needs approval</option>
                     <option value="Otherst">Paid leave: Other reasons - Does not discount time and needs approval</option>
                 </select>
-                <label style={{fontWeight: '600', fontSize: '0.8rem'}}  >Description</label>
+                <label style={{fontWeight: '600', fontSize: '0.8rem'}}>Description</label>
                 <textarea style={{maxWidth: '14.5rem', maxHeight: '7rem', fontFamily: 'Inter', color: 'black', fontWeight: '400', padding: '0.5rem'}} rows={3}/>
                 <div style={{zIndex: '50'}}>
                     <SelectDateRange />

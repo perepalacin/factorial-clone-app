@@ -8,21 +8,14 @@ import {
   UsersIcon,
 } from "lucide-react";
 
-import { BrowserRouter as Router, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../index.css";
-import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const pathname = useLocation().pathname;
   const today = new Date();
   const clockInLink = `/clock-in/${today.getFullYear().toString()}/${today.getMonth().toString()}`;
 
-  const [currentLink, setCurrentLink] = useState("/pathame");
-
-  useEffect(() => {
-    console.log("here");
-    // navigate(0);
-  }, [currentLink]);
 
   return (
     <nav className="pcnavbar">

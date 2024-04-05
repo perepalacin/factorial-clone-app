@@ -3,7 +3,7 @@ import "../../index.css";
 import { InfoIcon } from "lucide-react";
 
 const ClockIn = () => {
-  const [time, setTime] = useState("0h 00m");
+  const [time, _setTime] = useState("0h 00m");
   const [displayInfo, setDisplayInfo] = useState(false);
 
   return (

@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import { useState } from "react";
 
 interface AbsencesColorSquareProps {
   label: string | null;
