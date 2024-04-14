@@ -1,62 +1,35 @@
 import { CalendarIcon, MapPin } from 'lucide-react';
 import '../../index.css';
-
-interface FeedDataProps {
-    id: string;
-    author: string;
-    authorPicture: string;
-    date: Date;
-    category: string;
-    title: string;
-    location: string | null;
-    image: string  | null;
-    body: string;
-}
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { events_feed } from '../../types';
 
 const Feed = () => {
-    const feedData: FeedDataProps[] = [{
-        id: "1",
-        author: "Jose Miguel Andorra",
-        authorPicture: '/src/assets/blank-profile-picture-973460_960_720.png', 
-        date: new Date(),
-        category: "Company announcements",
-        title: 'Team working this friday',
-        location: 'Paris Coffee',
-        image: 'src/assets/cafeterias-barcelona-elle-1651662668.jpg',
-        body: "Hello everyone! We are going to celebrate that we hit our goals for 2020 in the Paris Cafeteria tonight at 3PM!",
-    },{
-        id: "2",
-        author: "Jose Miguel Andorra",
-        authorPicture: '/src/assets/blank-profile-picture-973460_960_720.png', 
-        date: new Date(),
-        category: "Company announcements",
-        title: '2023 Calendar',
-        location: null,
-        image: null,
-        body: "Hello everyone! Lorem Ipsum whatever whatever lets go!!Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!!",
-    },
-    {
-        id: "3",
-        author: "Jose Miguel Andorra",
-        authorPicture: 'src/assets/427117o_1cutvnri21qkbgv6keeaudspl18.png', 
-        date: new Date(),
-        category: "Company announcements",
-        title: '2023 Calendar',
-        location: null,
-        image: 'src/assets/cafeterias-barcelona-pepe-y-lepu-elle-1652119943.jpg',
-        body: "Hello everyone! Lorem Ipsum whatever whatever lets go!!Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!! Hello everyone! Lorem Ipsum whatever whatever lets go!!",
-    }];
+    const [eventsFeed, setEventsFeed] = useState<events_feed[]>([]);
+    useEffect(() => {
+      axios.get("http://localhost:3000/api/events")
+      .then((response) => {
+        console.log("promise fulfilled");
+        console.log(response.data);
+        setEventsFeed(response.data);
+      })
+      .catch((error) => {
+        console.log("Error failed to fetch data:" + error);
+      });
+  
+    }, []);
 
   return (
     <div style={{width: '100%'}}>
-        {feedData.map((item) => {
+        {eventsFeed.map((item) => {
+            const date = new Date(item.created_at);
             return (
                 <div key={item.id} className='card-element feed-item'>
                     <div style={{display: 'flex', flexDirection: 'row', gap: '0.25rem', alignItems: 'center', fontSize: '0.8rem'}} className='secondary-text'>
-                        <img src={item.authorPicture} alt= "Picture of the publisher" width={40} height={40} style={{borderRadius: '2rem', objectFit: 'cover', marginRight: '0.5rem'}}/>
-                        <p>{item.author}</p>
+                        <img src={item.image} alt= "Picture of the publisher" width={40} height={40} style={{borderRadius: '2rem', objectFit: 'cover', marginRight: '0.5rem'}}/>
+                        <p>{item.name}</p>
                         <p>·</p>
-                        <p>{item.date.toDateString()}</p>
+                        <p>{date.toDateString()}</p>
                         <p>·</p>
                         <p>{item.category}</p>
                     </div>
@@ -64,20 +37,20 @@ const Feed = () => {
                     {item.location ? 
                     <div style={{display: 'flex', flexDirection: 'row', gap: '0.25rem', alignItems: 'center', fontSize: '0.8rem'}}>
                         <CalendarIcon width={18} height={18}/>
-                        <p>{item.date.toString()}</p>
+                        <p>{date.toDateString()}</p>
                         <MapPin width={18} height={18} style={{marginLeft: '1rem'}}/>
                         <p>{item.location}</p>
                     </div>
                     :
                     <></>
                     }
-                    {item.image ?
+                    {item.picture ?
                     <div style={{width: '50%', height: '50%', objectFit: 'contain'}}>
-                        <img src={item.image} alt= "Image of the event" width={650} style={{margin: '1rem 0rem 1rem 0rem', borderRadius: '1rem'}}/>
+                        <img src={item.picture} alt= "Image of the event" width={650} style={{margin: '1rem 0rem 1rem 0rem', borderRadius: '1rem'}}/>
                     </div>
                     :
                     <></>}
-                    <p className='feed-item-body'>{item.body}</p>
+                    <p className='feed-item-body'>{item.description}</p>
                 </div>
             )
         })}

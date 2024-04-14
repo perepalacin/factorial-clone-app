@@ -338,11 +338,11 @@ table {
   border-radius: 0.375rem;
 }
 
-/* td, th {
+td, th {
   padding: 0.5rem 0rem;
 
-  border-bottom: 1px solid #ddd;
-} */
+  /* border-bottom: 1px solid #ddd; */
+}
 
 .table-row {
   padding: 0.5rem 0rem;

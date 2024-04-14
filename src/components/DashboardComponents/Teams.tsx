@@ -44,9 +44,9 @@ const Teams = () => {
             <ArrowRightIcon className='icon' />
           </div>
             <Separator />
-          {data.map((item) => {
+          {data.map((item, index) => {
             return (
-              <div className='ghost-button'>
+              <div className='ghost-button' key={index} >
                 <div
                   style={{
                     display: "flex",
