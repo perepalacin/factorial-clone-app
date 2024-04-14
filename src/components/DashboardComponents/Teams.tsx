@@ -1,25 +1,30 @@
 import Separator from '../ui/Separator';
 import "../../index.css";
 import { ArrowRightIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface TeamsDataProps {
+  name: string;
+  picture: string;
+  team_name: string;
+}
 
 const Teams = () => {
-    const data = [
-        {
-            team: "Mechanical",
-          photo: "You have shifts to fill.",
-          name: "Pepito Grillo Agramonte",
-        },
-        {
-            team: "Mechanical",
-          photo: "You have shifts to fill.",
-          name: "Juan Javier Lope de Vega",
-        },
-        {
-            team: "Mechanical",
-          photo: "Margot Margarita de Neptuno",
-          name: "Margot Margarita de Neptuno",
-        },
-      ];
+  const [teamsData, setTeamsData] = useState<TeamsDataProps[]>([]);
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/employees/teammates/5")
+    .then((response) => {
+      console.log("promise fulfilled");
+      console.log(response.data);
+      setTeamsData(response.data);
+      //TODO: Split the data in different teams and such
+    })
+    .catch((error) => {
+      console.log("Error failed to fetch data:" + error);
+    });
+
+  }, []);
       return (
         <div
           style={{
@@ -31,6 +36,7 @@ const Teams = () => {
             overflowX: 'clip',
           }}
         >
+          {teamsData.length >= 1 ?
           <div style={{
             display: 'flex',
             flexDirection: 'row',
@@ -40,11 +46,14 @@ const Teams = () => {
           }}>
             <p style={{
               fontWeight: '500'
-            }}>Mechanicals</p> 
+            }}>{teamsData[0].team_name}</p> 
             <ArrowRightIcon className='icon' />
           </div>
+            :
+            <></>
+            }
             <Separator />
-          {data.map((item, index) => {
+          {teamsData.map((item, index) => {
             return (
               <div className='ghost-button' key={index} >
                 <div
@@ -58,7 +67,7 @@ const Teams = () => {
                     marginBottom: "0.5rem"
                   }}
                 >
-                  <img src="/src/assets/image-lsoyucoe.png" width={40} height={40} style={{borderRadius: '0.75rem'}}/>
+                  <img src={item.picture} width={40} height={40} style={{borderRadius: '0.75rem', objectFit: 'cover',}}/>
                     <p
                       style={{
                         fontWeight: "400",
