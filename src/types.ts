@@ -17,3 +17,12 @@ export interface events_feed {
     picture: string | null; //Event picture
     description: string;
 }
+
+export interface absences_data {
+    id: number;
+    type: string; //TODO: Turn into enum;
+    start: Date;
+    finish: Date;
+    employee_id: number;
+    name: string;
+}

@@ -3,8 +3,23 @@ import DaysOffSummary from "./DaysOffSummary"
 import DaysOffHistory from "./DaysOffHistory"
 import YearCalendar from "./TimeOff/YearCalendar"
 import RequestTimeOffDialog from "./TimeOff/RequestTimeOffDialog"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { absences_data } from "../types"
 
 const TimeOff = () => {
+  const [offDays, setOffDays] = useState<absences_data[]>([]);
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/holidays/7")
+    .then((response) => {
+      setOffDays(response.data);
+    })
+    .catch((error) => {
+      console.log("Error failed to fetch data:" + error);
+    });
+  }, []);
+
+  //The user is hardcoded in this example, but we should get the user id to fetch it's data
   return (
     <div className='main-div'>
       <div className='page-card' style={{padding: '0rem 0rem'}}>
@@ -20,7 +35,7 @@ const TimeOff = () => {
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <div style={{display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center', width: '40%', padding: '1rem 1rem'}}>
             <DaysOffSummary year={2024}/>
-            <DaysOffHistory />
+            <DaysOffHistory offDays = {offDays}/>
           </div>
           <div style={{width: '100%', minHeight: '60%', maxHeight: '60%'}}>
             <YearCalendar />

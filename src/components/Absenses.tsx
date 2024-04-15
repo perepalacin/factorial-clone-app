@@ -1,26 +1,10 @@
 import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getDaysOfMonth, longFormatter } from "../utils/dateTools";
 import AbsencesColorSquare from "./ui/AbsencesColorSquare";
-
-const dummyData = [
-  {
-    name: "Adrian Romero Galeon",
-    photo: "/fegerere",
-  },
-  {
-    name: "Alex Bamonte Lopez",
-    photo: "/rjbregherkjbe",
-  },
-  {
-    name: "Lucia Lucas Mango",
-    photo: "/jggjrhgerjkge",
-  },
-  {
-    name: "Sara Ubeda Lopez",
-    photo: "/rvhkghejkehwjkgre",
-  },
-];
+import { MemberDetails } from "./DashboardComponents/Teams";
+import axios from "axios";
+import { absences_data } from "../types";
 
 const colorCode = [{
   color: "rgb(7, 162, 173)",
@@ -40,34 +24,70 @@ const colorCode = [{
 }
 ];
 
-const dummyHolidays = [
-  {
-    name: "Adrian Romero Galeon",
-    startDate: new Date("03-12-2024"),
-    endDate: new Date("03-21-2024"),
-    type: "Maternity leave"
-  },
-  {
-    name: "Sara Ubeda Lopez",
-    startDate: new Date("03-03-2024"),
-    endDate: new Date("03-18-2024"),
-    type: "Medical absence",
-  },
-  {
-    name: "Alex Bamonte Lopez",
-    startDate: new Date("03-06-2024"),
-    endDate: new Date("03-10-2024"),
-    type: "Time off (PTO or NPTO)",
-  },
-  {
-    name: "Alex Bamonte Lopez",
-    startDate: new Date("03-012-2024"),
-    endDate: new Date("03-16-2024"),
-    type: "Overtime compensation",
-  }
-];
+// const absencesData = [
+//   {
+//     name: "Adrian Romero Galeon",
+//     startDate: new Date("03-12-2024"),
+//     endDate: new Date("03-21-2024"),
+//     type: "Maternity leave"
+//   },
+//   {
+//     name: "Sara Ubeda Lopez",
+//     startDate: new Date("03-03-2024"),
+//     endDate: new Date("03-18-2024"),
+//     type: "Medical absence",
+//   },
+//   {
+//     name: "Alex Bamonte Lopez",
+//     startDate: new Date("03-06-2024"),
+//     endDate: new Date("03-10-2024"),
+//     type: "Time off (PTO or NPTO)",
+//   },
+//   {
+//     name: "Alex Bamonte Lopez",
+//     startDate: new Date("03-012-2024"),
+//     endDate: new Date("03-16-2024"),
+//     type: "Overtime compensation",
+//   }
+// ];
 
 const Absenses = () => {
+  const [employeesData, setEmployeesData] = useState<MemberDetails[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredList, setFilteredList] = useState<MemberDetails[]>([]);
+  const [absencesData, setAbsencesData] = useState<absences_data[]>([]);
+  
+  //Function that manages the filtering of all the employees list
+  const handleInputChange = (input: string) => {
+    const searchTerm = input;
+    setSearchInput(searchTerm);
+
+    //We use the input value to search instead of the search input state
+    //in order to compensate for the state change asyncronous nature,
+    const filteredItems = employeesData.filter((user) => user.name.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
+    setFilteredList(filteredItems);
+  }
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/employees")
+    .then((response) => {
+      setEmployeesData(response.data);
+      setFilteredList(response.data);
+    })
+    .catch((error) => {
+      console.log("Error failed to fetch data:" + error);
+    });
+
+    axios.get("http://localhost:3000/api/holidays/all")
+    .then((response) => {
+      setAbsencesData(response.data);
+      console.log("Absences:");
+      console.log(absencesData);
+    })
+    .catch((error) => {
+      console.log("Error failed to fetch absences data:" + error);
+    });
+  }, []);
+
   const today = new Date();
   const [year, setYear] = useState(Number(today.getFullYear()));
   const [month, setMonth] = useState(Number(today.getMonth()));
@@ -90,10 +110,7 @@ const Absenses = () => {
         setMonth((prevMonth) => prevMonth - 1);
       }
     }
-  };
-  
-  console.log("Rerun!");
-  
+  };  
   return (
     <div className="main-div" style={{ overflowX: 'hidden' }}>
       <div className="card-element" style={{ padding: "2rem 0rem"}}>
@@ -142,6 +159,8 @@ const Absenses = () => {
                     className="input-search"
                     style={{ width: "150px" }}
                     placeholder="Search employees"
+                    onChange={(event) => {handleInputChange(event.target.value)}}
+                    value={searchInput}
                   />
                 </th>
                 {days.map((item) => {
@@ -188,9 +207,9 @@ const Absenses = () => {
               </tr>
             </thead>
             <tbody>
-              {dummyData.map((item) => {
+              {filteredList.map((item) => {
                 return (
-                  <tr>
+                  <tr key={item.name}>
                     <td
                       style={{
                         padding: "0.5rem 2rem 0.5rem 0.5rem",
@@ -204,10 +223,10 @@ const Absenses = () => {
                       }}
                     >
                       <img
-                        src="/src/assets/image-lsoyucoe.png"
+                        src={item.picture}
                         width={32}
                         height={32}
-                        style={{ borderRadius: "0.75rem" }}
+                        style={{ borderRadius: "0.75rem", objectFit: 'cover' }}
                       />
                       <p
                         style={{
@@ -224,11 +243,13 @@ const Absenses = () => {
                       var color = 'rgba(0, 0, 0, 0)';
                       var bgOpacity = '1';
                       var holidayLabel = "";
-                      for (let i = 0; i < dummyHolidays.length; i++) {
-                        if (item.name === dummyHolidays[i].name) {
-                          if (dummyHolidays[i].startDate <= dayItem && dayItem <= dummyHolidays[i].endDate) {
-                            holidayLabel = dummyHolidays[i].type;
-                            color = colorCode.find(item => item.type === dummyHolidays[i].type)?.color || 'rgba(0, 0, 0, 0)';
+                      for (let i = 0; i < absencesData.length; i++) {
+                        if (item.name === absencesData[i].name) {
+                          const startDate = new Date (absencesData[i].start);
+                          const endDate = new Date(absencesData[i].finish);
+                          if (startDate <= dayItem && dayItem <= endDate) {
+                            holidayLabel = absencesData[i].type;
+                            color = colorCode.find(item => item.type === absencesData[i].type)?.color || 'rgba(0, 0, 0, 0)';
                             if (dayItem.toLocaleDateString('en', {weekday: 'long'}) === "Saturday" || dayItem.toLocaleDateString('en', {weekday: 'long'}) === "Sunday") {
                               bgOpacity = '0.4';
                             }

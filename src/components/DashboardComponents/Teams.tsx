@@ -4,21 +4,24 @@ import { ArrowRightIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface TeamsDataProps {
+
+export interface MemberDetails {
   name: string;
   picture: string;
-  team_name: string;
+}
+interface TeamsDataProps {
+  teamName: string;
+  members: MemberDetails[];
 }
 
 const Teams = () => {
   const [teamsData, setTeamsData] = useState<TeamsDataProps[]>([]);
   useEffect(() => {
-    axios.get("http://localhost:3000/api/employees/teammates/5")
+    //In this case, since we don't have a session, the employee id is hardcoded in the api call
+    //However, we would have to substract the employee id from the session
+    axios.get("http://localhost:3000/api/employees/teammates/19")
     .then((response) => {
-      console.log("promise fulfilled");
-      console.log(response.data);
       setTeamsData(response.data);
-      //TODO: Split the data in different teams and such
     })
     .catch((error) => {
       console.log("Error failed to fetch data:" + error);
@@ -36,26 +39,33 @@ const Teams = () => {
             overflowX: 'clip',
           }}
         >
-          {teamsData.length >= 1 ?
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: '0.75rem',
-            backgroundColor: '#FAFAFA'
-          }}>
-            <p style={{
-              fontWeight: '500'
-            }}>{teamsData[0].team_name}</p> 
-            <ArrowRightIcon className='icon' />
-          </div>
-            :
-            <></>
-            }
+        {teamsData.map((item) => {
+          return (
+                <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                margin: 0,
+                padding: 0,
+              }}
+              key={item.teamName}
+            >
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              padding: '0.75rem',
+              backgroundColor: '#FAFAFA'
+            }}>
+              <p style={{
+                fontWeight: '500'
+              }}>{item.teamName}</p> 
+              <ArrowRightIcon className='icon' />
+            </div>
             <Separator />
-          {teamsData.map((item, index) => {
+            {item.members.map((item) => {
             return (
-              <div className='ghost-button' key={index} >
+              <div className='ghost-button' key={item.name} >
                 <div
                   style={{
                     display: "flex",
@@ -81,6 +91,10 @@ const Teams = () => {
               </div>
             );
           })}
+
+            </div>
+          )
+        })}
         </div>
       );
     };

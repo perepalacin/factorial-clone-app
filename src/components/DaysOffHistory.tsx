@@ -1,57 +1,62 @@
 import { ArrowRightIcon, CalendarIcon } from "lucide-react"
 import CalendarCustomIcon from "./ui/CalendarCustomIcon";
 import { shortFormatter } from "../utils/dateTools";
+import { absences_data } from "../types";
 
 
-const dummyHolidays = [
-    {
-      name: "Pere",
-      startDate: new Date("03-12-2024"),
-      endDate: new Date("03-21-2024"),
-      type: "Maternity leave"
-    },
-    {
-      name: "Pere",
-      startDate: new Date("03-03-2024"),
-      endDate: new Date("03-18-2024"),
-      type: "Medical absence",
-    },
-    {
-      name: "Pere",
-      startDate: new Date("03-06-2024"),
-      endDate: new Date("03-10-2024"),
-      type: "Time off",
-    },
-    {
-      name: "Pere",
-      startDate: new Date("03-13-2024"),
-      endDate: new Date("03-16-2024"),
-      type: "Overtime compensation",
-    }
-  ];
+// const props.offDays = [
+//     {
+//       name: "Pere",
+//       startDate: new Date("03-12-2024"),
+//       endDate: new Date("03-21-2024"),
+//       type: "Maternity leave"
+//     },
+//     {
+//       name: "Pere",
+//       startDate: new Date("03-03-2024"),
+//       endDate: new Date("03-18-2024"),
+//       type: "Medical absence",
+//     },
+//     {
+//       name: "Pere",
+//       startDate: new Date("03-06-2024"),
+//       endDate: new Date("03-10-2024"),
+//       type: "Time off",
+//     },
+//     {
+//       name: "Pere",
+//       startDate: new Date("03-13-2024"),
+//       endDate: new Date("03-16-2024"),
+//       type: "Overtime compensation",
+//     }
+//   ];
 
-  console.log(shortFormatter.format(dummyHolidays[0].endDate.getMonth()))
+  interface DaysOffHistoryProps {
+    offDays: absences_data[];
+}
 
-const DaysOffHistory = () => {
+const DaysOffHistory = (props: DaysOffHistoryProps) => {
   return (
     <div style={{display: 'flex', flexDirection: 'column', padding: '0rem 1rem'}}>
         <CalendarIcon size={24} className="accent-color" style={{textAlign: 'left', marginBottom: '0.5rem'}}/>
         <p style={{fontWeight: 600, textAlign: 'left', marginBottom: '0.5rem'}}>Past time off</p>
         <p style={{fontSize: '0.8rem', textAlign: 'left', marginBottom: '0.5rem'}}>This is your time off history. Past absences can't be edited.</p>
-        {dummyHolidays.length !== 0 ? 
-        dummyHolidays.map((item) => {
+        {props.offDays.length !== 0 ? 
+        props.offDays.map((item) => {
+          const startDate = new Date(item.start);
+          const endDate = new Date(item.finish);
             return (
-                <div key = {item.startDate.getDate()} style={{display: 'flex', flexDirection: 'row', padding: '1rem 1rem', alignItems: 'center', justifyContent: 'start', gap: '1rem', border: '1px solid #E2E2E5'}}>
+                <div key = {startDate.getDate()} style={{display: 'flex', flexDirection: 'row', padding: '1rem 1rem', alignItems: 'center', justifyContent: 'start', gap: '1rem', border: '1px solid #E2E2E5'}}>
                     <div style={{scale: '0.8'}}>
-                    <CalendarCustomIcon day={item.startDate.getDate()} month={shortFormatter.format(item.startDate.getMonth()).toUpperCase()}/>
+                    <CalendarCustomIcon day={startDate.getDate()} month={shortFormatter.format(startDate.getMonth()).toUpperCase()}/>
                     </div>
                     <ArrowRightIcon size= {18} style={{color: '#7a7a7a  '}}/>
                     <div style={{scale: '0.8'}}>
-                    <CalendarCustomIcon day={item.endDate.getDate()} month={shortFormatter.format(item.endDate.getMonth()).toUpperCase()}/>
+                    <CalendarCustomIcon day={endDate.getDate()} month={shortFormatter.format(endDate.getMonth()).toUpperCase()}/>
                     </div>
                     <div>
                     <p style={{fontSize: '0.8rem'}}>{item.type}</p>
-                    <p style={{fontSize: '0.8rem'}}>({item.endDate.getFullYear()})</p>
+                    <p style={{fontSize: '0.8rem'}}>({endDate.getFullYear()})</p>
                     </div>
 
                 </div>
