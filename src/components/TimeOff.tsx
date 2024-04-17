@@ -8,9 +8,10 @@ import axios from "axios"
 import { absences_data } from "../types"
 
 const TimeOff = () => {
+  const today = new Date();
   const [offDays, setOffDays] = useState<absences_data[]>([]);
   useEffect(() => {
-    axios.get("http://localhost:3000/api/holidays/7")
+    axios.get("http://localhost:3000/api/holidays/19")
     .then((response) => {
       setOffDays(response.data);
     })
@@ -34,11 +35,11 @@ const TimeOff = () => {
         <Separator />
         <div style={{display: 'flex', flexDirection: 'row'}}>
           <div style={{display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center', width: '40%', padding: '1rem 1rem'}}>
-            <DaysOffSummary year={2024}/>
+            <DaysOffSummary offDays = {offDays} year={today.getFullYear()}/>
             <DaysOffHistory offDays = {offDays}/>
           </div>
           <div style={{width: '100%', minHeight: '60%', maxHeight: '60%'}}>
-            <YearCalendar />
+            <YearCalendar offDays = {offDays} />
           </div>
         </div>
       </div>

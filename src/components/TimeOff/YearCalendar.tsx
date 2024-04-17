@@ -1,4 +1,6 @@
 import {  DateRange, DayPicker } from 'react-day-picker';
+import { absences_data } from '../../types';
+import { useEffect, useState } from 'react';
 
 const css = `
   .my-selected:not([disabled]) { 
@@ -14,27 +16,30 @@ const css = `
   }
 `;
 
-const dummyHolidays: DateRange[] = [
-    {
-      from: new Date("03-12-2024"),
-      to: new Date("03-21-2024"),
-    },
-    {
-      from: new Date("01-01-2024"),
-      to: new Date("01-07-2024"),
-    },
-    {
-      from: new Date("07-01-2024"),
-      to: new Date("07-25-2024"),
-    },
-    {
-      from: new Date("12-01-2024"),
-      to: new Date("12-23-2024"),
-    }];  
+    
+interface YearCalendarProps {
+    offDays: absences_data[];
+}
 
-export default function YearCalendar() {
+
+export default function YearCalendar(props: YearCalendarProps) {
     const year = new Date().getFullYear();
     const months = Array.from(Array(12).keys());
+    const [selectedDays, setSelectedDays] = useState<DateRange[]>([]);
+    useEffect(() => {
+      for (let i = 0; i < props.offDays.length; i++) {
+        if (props.offDays[i].type === "Time off" || props.offDays[i].type === "Overtime compensation") {
+          const from = new Date(props.offDays[i].start);
+          const to = new Date(props.offDays[i].finish);
+          const newArray: DateRange[] = selectedDays;
+          newArray.push({
+            from: from,
+            to: to,
+          });
+          setSelectedDays(newArray);
+        }
+      }
+    }, [props.offDays]);
   return (
     <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))'}}>
         <style>{css}</style>
@@ -47,9 +52,9 @@ export default function YearCalendar() {
                 defaultMonth={new Date(year, item)}
                 ISOWeek
                 modifiers={{
-                  selected: dummyHolidays.map(holiday => ({
-                    from: holiday.from,
-                    to: holiday.to,
+                  selected: selectedDays.map(item => ({
+                    from: item.from,
+                    to: item.to,
                   })),
                 }}
                 modifiersClassNames={{

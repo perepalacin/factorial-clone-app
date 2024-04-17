@@ -1,6 +1,6 @@
 import { ArrowRightIcon, CalendarIcon } from "lucide-react"
 import CalendarCustomIcon from "./ui/CalendarCustomIcon";
-import { shortFormatter } from "../utils/dateTools";
+// import { shortFormatter } from "../utils/dateTools";
 import { absences_data } from "../types";
 
 
@@ -39,8 +39,8 @@ const DaysOffHistory = (props: DaysOffHistoryProps) => {
   return (
     <div style={{display: 'flex', flexDirection: 'column', padding: '0rem 1rem'}}>
         <CalendarIcon size={24} className="accent-color" style={{textAlign: 'left', marginBottom: '0.5rem'}}/>
-        <p style={{fontWeight: 600, textAlign: 'left', marginBottom: '0.5rem'}}>Past time off</p>
-        <p style={{fontSize: '0.8rem', textAlign: 'left', marginBottom: '0.5rem'}}>This is your time off history. Past absences can't be edited.</p>
+        <p style={{fontWeight: 600, textAlign: 'left', marginBottom: '0.5rem'}}>Past absences</p>
+        <p style={{fontSize: '0.8rem', textAlign: 'left', marginBottom: '0.5rem'}}>This is your absences history. Past absences can't be edited. Only Time off and overtime compensations are displayed on the calendar.</p>
         {props.offDays.length !== 0 ? 
         props.offDays.map((item) => {
           const startDate = new Date(item.start);
@@ -48,11 +48,12 @@ const DaysOffHistory = (props: DaysOffHistoryProps) => {
             return (
                 <div key = {startDate.getDate()} style={{display: 'flex', flexDirection: 'row', padding: '1rem 1rem', alignItems: 'center', justifyContent: 'start', gap: '1rem', border: '1px solid #E2E2E5'}}>
                     <div style={{scale: '0.8'}}>
-                    <CalendarCustomIcon day={startDate.getDate()} month={shortFormatter.format(startDate.getMonth()).toUpperCase()}/>
+                      {/* Fix the month display! */}
+                    <CalendarCustomIcon day={startDate.getDate()} month={startDate.getMonth().toString()}/>
                     </div>
                     <ArrowRightIcon size= {18} style={{color: '#7a7a7a  '}}/>
                     <div style={{scale: '0.8'}}>
-                    <CalendarCustomIcon day={endDate.getDate()} month={shortFormatter.format(endDate.getMonth()).toUpperCase()}/>
+                    <CalendarCustomIcon day={endDate.getDate()} month={endDate.getMonth().toString()}/>
                     </div>
                     <div>
                     <p style={{fontSize: '0.8rem'}}>{item.type}</p>
@@ -63,7 +64,7 @@ const DaysOffHistory = (props: DaysOffHistoryProps) => {
             )
         })
         : 
-        <p style={{fontSize: '0.8rem'}}>No past absences this year</p> }
+        <p style={{fontSize: '0.8rem', fontWeight: '600'}}>No past absences this year</p> }
         
         {/* Or the map through hehe */}
     </div>
