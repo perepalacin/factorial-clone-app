@@ -19,7 +19,7 @@ export interface events_feed {
 }
 
 export interface absences_data {
-    id: number;
+    id: number | undefined;
     type: string; //TODO: Turn into enum;
     start: Date;
     finish: Date;

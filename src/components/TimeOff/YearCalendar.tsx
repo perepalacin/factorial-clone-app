@@ -28,7 +28,6 @@ export default function YearCalendar(props: YearCalendarProps) {
     const [selectedDays, setSelectedDays] = useState<DateRange[]>([]);
     useEffect(() => {
       for (let i = 0; i < props.offDays.length; i++) {
-        if (props.offDays[i].type === "Time off" || props.offDays[i].type === "Overtime compensation") {
           const from = new Date(props.offDays[i].start);
           const to = new Date(props.offDays[i].finish);
           const newArray: DateRange[] = selectedDays;
@@ -37,7 +36,6 @@ export default function YearCalendar(props: YearCalendarProps) {
             to: to,
           });
           setSelectedDays(newArray);
-        }
       }
     }, [props.offDays]);
   return (

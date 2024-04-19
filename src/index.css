@@ -93,6 +93,15 @@ ul {
   color: #FF5D7E;
   font-weight: 700;
   border-style: solid;
+  cursor: pointer;
+}
+
+.main-button:disabled {
+  cursor: not-allowed;
+  border-color: #515196;
+  color: #515196;
+  background-color: #E2E2E5;
+  opacity: 50%;
 }
 
 .accent-color {
@@ -111,6 +120,7 @@ ul {
   gap: 0.25rem;
   align-items: center;
   text-wrap: nowrap;
+  cursor: pointer;
 }
 
 .big-button {

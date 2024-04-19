@@ -3,34 +3,6 @@ import CalendarCustomIcon from "./ui/CalendarCustomIcon";
 // import { shortFormatter } from "../utils/dateTools";
 import { absences_data } from "../types";
 
-
-// const props.offDays = [
-//     {
-//       name: "Pere",
-//       startDate: new Date("03-12-2024"),
-//       endDate: new Date("03-21-2024"),
-//       type: "Maternity leave"
-//     },
-//     {
-//       name: "Pere",
-//       startDate: new Date("03-03-2024"),
-//       endDate: new Date("03-18-2024"),
-//       type: "Medical absence",
-//     },
-//     {
-//       name: "Pere",
-//       startDate: new Date("03-06-2024"),
-//       endDate: new Date("03-10-2024"),
-//       type: "Time off",
-//     },
-//     {
-//       name: "Pere",
-//       startDate: new Date("03-13-2024"),
-//       endDate: new Date("03-16-2024"),
-//       type: "Overtime compensation",
-//     }
-//   ];
-
   interface DaysOffHistoryProps {
     offDays: absences_data[];
 }

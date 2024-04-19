@@ -24,33 +24,6 @@ const colorCode = [{
 }
 ];
 
-// const absencesData = [
-//   {
-//     name: "Adrian Romero Galeon",
-//     startDate: new Date("03-12-2024"),
-//     endDate: new Date("03-21-2024"),
-//     type: "Maternity leave"
-//   },
-//   {
-//     name: "Sara Ubeda Lopez",
-//     startDate: new Date("03-03-2024"),
-//     endDate: new Date("03-18-2024"),
-//     type: "Medical absence",
-//   },
-//   {
-//     name: "Alex Bamonte Lopez",
-//     startDate: new Date("03-06-2024"),
-//     endDate: new Date("03-10-2024"),
-//     type: "Time off (PTO or NPTO)",
-//   },
-//   {
-//     name: "Alex Bamonte Lopez",
-//     startDate: new Date("03-012-2024"),
-//     endDate: new Date("03-16-2024"),
-//     type: "Overtime compensation",
-//   }
-// ];
-
 const Absenses = () => {
   const [employeesData, setEmployeesData] = useState<MemberDetails[]>([]);
   const [searchInput, setSearchInput] = useState("");
