@@ -33,7 +33,7 @@ const css = `
 `;
 
 
-const goodRequest = () => toast.success("Holidays requested succesfully", {
+const goodRequest = (prompt: string) => toast.success(prompt, {
   position: "bottom-center",
   autoClose: 3000,
   hideProgressBar: true,
@@ -45,7 +45,7 @@ const goodRequest = () => toast.success("Holidays requested succesfully", {
 });
 
 
-const badRequest = () => toast.error("Invalid holidays request", {
+const badRequest = (prompt: string) => toast.error(prompt, {
   position: "bottom-center",
   autoClose: 3000,
   hideProgressBar: true,
@@ -67,26 +67,23 @@ async function handleClick (range: DateRange, type: string) {
         start: range.from,
         finish: range.to,
       }
-      console.log(datesRequested);
       axios
       .post('http://localhost:3000/api/holidays/submit', datesRequested)
-      .then(_response => {
-        console.log("api sent");
-        goodRequest();
-        const navigate = useNavigate();
-        navigate(0);
+      .then(response => {
+        window.location.reload();
+        goodRequest(response.data.message);
         return null;
       })
-      .catch(_error => {
-        badRequest();
+      .catch(error => {
+        badRequest(error.response.data.error);
         return null;
       });
     } else {
-      badRequest();
+      badRequest("Invalid range, check the dates selected");
       return null;
     }
   } else {
-    badRequest();
+    badRequest("Missing days selection.");
     return null;
   }
 }
@@ -102,7 +99,6 @@ interface SelectedRangeProps {
 export default function SelectDateRange(props: SelectedRangeProps) {
   const [range, setRange] = useState<DateRange | undefined>(undefined);
   const [dialogVisible, _isDialogVisible] = useState(true);
-  
   return (
     <div>
       <ToastContainer/>
