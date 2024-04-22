@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import '../index.css';
 import ClockInTableRow from "./ClockInTableRow";
 import { getDaysOfMonth, longFormatter, shortFormatter } from "../utils/dateTools";
+import axios from "axios";
 
 const ClockInPage = () => {
 
@@ -42,6 +43,14 @@ const ClockInPage = () => {
   //We use a useEffect to handle with the asyncronous nature of state change;
   useEffect(() => {
     navigate(`/clock-in/${year.toString()}/${month.toString()}`);
+    axios.get("http://localhost:3000/api/employees")
+    .then((response) => {
+      const data = response.data;
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log("Error failed to fetch data:" + error);
+    });
   }, [month, year]);
 
 

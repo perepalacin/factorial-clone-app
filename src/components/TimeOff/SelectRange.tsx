@@ -4,7 +4,6 @@ import { DateRange, DayPicker } from "react-day-picker";
 import { absences_data } from "../../types";
 import axios from "axios";
 import { Slide, ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 const today = new Date();
 
@@ -62,7 +61,7 @@ async function handleClick (range: DateRange, type: string) {
       const datesRequested: absences_data  = {
         id: undefined,
         name: "Pere Palacín",
-        employee_id: 14,
+        employee_id: 19,
         type: type,
         start: range.from,
         finish: range.to,

@@ -1,68 +1,59 @@
 import "../index.css";
 import "reactflow/dist/style.css";
 import "../org-chart.css";
-import EmployeeNode from "./OrgChart/EmployeeNode";
-import ReactFlow from "reactflow";
+import EmployeeNode, { EmployeeNodeProps } from "./OrgChart/EmployeeNode";
+import ReactFlow, { useEdgesState, useNodesState } from "reactflow";
 import { SearchIcon } from "lucide-react";
+import { useEffect } from "react";
+import axios from "axios";
+
+const nodeTypes = {
+  employeeNode: EmployeeNode,
+};
 
 const OrgChart = () => {
-  //TODO: Fetch the employees data
-  //Loop through the data to create the nodes elements
-  //Loop through the nodes to create the edges
-  const nodes = [
-    {
-      id: "1",
-      data: { name: "Pere Palacín" },
-      position: { x: 0, y: 0 },
-      type: "employeeNode",
-    },
-    {
-      id: "2",
-      data: { name: "Pere Palacín" },
-      position: { x: -100, y: 250 },
-      type: "employeeNode",
-    },
-    {
-      id: "3",
-      data: { name: "Pere Palacín" },
-      position: { x: 100, y: 250 },
-      type: "employeeNode",
-    },
-    {
-      id: "4",
-      data: { name: "Pere Palacín" },
-      position: { x: 100, y: 500 },
-      type: "employeeNode",
-    },
-  ];
 
-  const edges = [
-    {
-      type: "smoothstep",
-      source: "1",
-      target: "2",
-      id: "1",
-      sourceHandle: "out",
-    },
-    {
-      type: "smoothstep",
-      source: "1",
-      target: "3",
-      id: "2",
-      sourceHandle: "out",
-    },
-    {
-      type: "smoothstep",
-      source: "3",
-      target: "4",
-      id: "3",
-      sourceHandle: "out",
-    },
-  ];
-
-  const nodeTypes = {
-    employeeNode: EmployeeNode,
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const supervisor = event.currentTarget.id;
+    axios
+      .get(`http://localhost:3000/api/employees/org/${supervisor}`)
+      .then((response) => {
+        const previousNodes = nodes;
+        console.log(response.data[0]);
+        const employees = response.data[0];
+        for (let i = 0; i < employees.length; i++) {
+          employees[i].data.button = (<button id = {employees[i].id} onClick={handleClick}>+</button>);
+          previousNodes.push(employees[i]);
+        }
+        console.log(previousNodes);
+        setNodes(previousNodes);
+        setEdges(response.data[1]);
+      })
+      .catch((error) => {
+        console.log("Error failed to fetch data:" + error);
+      });
   };
+
+    const [nodes, setNodes] =  useNodesState([]);
+    const [edges, setEdges] = useEdgesState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/employees/org")
+      .then((response) => {
+        const employees = response.data[0];
+        for (let i = 0; i < employees.length; i++) {
+          employees[i].data.button = (<button id = {employees[i].id} onClick={() => {console.log(nodes); handleClick}}>+</button>);
+        }
+        setNodes(employees);
+        setEdges(response.data[1]);
+      })
+      .catch((error) => {
+        console.log("Error failed to fetch data:" + error);
+      });
+  }, []);
+
+
+
 
   return (
     <div className="main-div">
