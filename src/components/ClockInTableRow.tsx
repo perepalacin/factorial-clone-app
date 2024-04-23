@@ -6,10 +6,15 @@ import useComponentVisible from "../hooks/useComponentVisible";
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import "react-toastify/ReactToastify.css";
 
-interface ShiftsProps {
+export interface ShiftsProps {
   startTime: string;
   endTime: string;
   working: boolean;
+}
+
+interface ShiftsListProps extends ShiftsProps {
+  id: string;
+  type: boolean
 }
 
 interface ClockInTableRowProps {

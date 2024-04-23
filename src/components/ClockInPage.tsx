@@ -3,9 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import ClockIn from "./DashboardComponents/ClockIn";
 import { useEffect, useState } from "react";
 import '../index.css';
-import ClockInTableRow from "./ClockInTableRow";
+import ClockInTableRow, { ShiftsProps } from "./ClockInTableRow";
 import { getDaysOfMonth, longFormatter, shortFormatter } from "../utils/dateTools";
 import axios from "axios";
+
+
 
 const ClockInPage = () => {
 
@@ -43,7 +45,7 @@ const ClockInPage = () => {
   //We use a useEffect to handle with the asyncronous nature of state change;
   useEffect(() => {
     navigate(`/clock-in/${year.toString()}/${month.toString()}`);
-    axios.get("http://localhost:3000/api/employees")
+    axios.get(`http://localhost:3000/api/shifts/19/${month}/${year}`)
     .then((response) => {
       const data = response.data;
       console.log(data);
