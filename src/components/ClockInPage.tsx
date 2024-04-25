@@ -11,6 +11,15 @@ import axios from "axios";
 
 const ClockInPage = () => {
 
+  const [shiftsData, setShiftsData] = useState<ShiftsProps[]>([
+    {
+      day: "",
+      start: "",
+      finish: "",
+      working: true,
+    }
+  ]);
+
   const navigate = useNavigate();
   //We get the actual date
   const today = new Date();
@@ -19,6 +28,7 @@ const ClockInPage = () => {
   //if the parameters are missing, we hardcode the actual month.
   const [year, setYear] = useState(Number(yearId || today.getFullYear()));
   const [month, setMonth] = useState(Number(monthId || today.getMonth()));
+  const [workedHours, setWorkedHours] = useState(0);
   //TODO: If yearId and monthID are missing.
   //naviate to the current date.
 
@@ -47,16 +57,30 @@ const ClockInPage = () => {
     navigate(`/clock-in/${year.toString()}/${month.toString()}`);
     axios.get(`http://localhost:3000/api/shifts/19/${month}/${year}`)
     .then((response) => {
-      const data = response.data;
-      console.log(data);
+      setShiftsData(response.data);
     })
     .catch((error) => {
       console.log("Error failed to fetch data:" + error);
     });
   }, [month, year]);
 
-
   const days = getDaysOfMonth(year, month);
+
+  useEffect(() => {
+    let workedTime = 0;
+    for (let i = 0; i < shiftsData.length; i++) {
+      if (shiftsData[i].working === true) {
+        const start = new Date(shiftsData[i].day.split('T') + 'T' + shiftsData[i].start + '0Z').getTime();
+        const end = new Date(shiftsData[i].day.split('T') + 'T' + shiftsData[i].finish + '0Z').getTime();
+        let difference = (end - start)/60000; //We calculate the difference between shifts in miliseconds;
+        let hours = Math.floor(difference/6);
+        let minutes = difference - (hours*60);
+
+
+      }
+    }
+  }, [shiftsData])
+  
 
 
   return (
@@ -206,6 +230,15 @@ const ClockInPage = () => {
             </tr>
             </thead>
             {days.map((item) => {
+              const transferShifts: ShiftsProps[] | null = [];
+              for (let i = 0; i < shiftsData.length; i++) {
+                const rowDate = (new Date(shiftsData[i].day)).getDate();
+                if (item.getDate() === rowDate) {
+                  transferShifts.push(shiftsData[i]);
+                } else {
+                  break;
+                }
+            }
               return (
                 <ClockInTableRow 
                 key = {item.getDate()}
@@ -213,7 +246,7 @@ const ClockInPage = () => {
                 dayName={item.toLocaleDateString('en', {weekday: 'long'})} 
                 month={month} 
                 monthShortName={shortFormatter.format(today.getMonth())} 
-                shifts={null}
+                shifts={transferShifts}
                 />
               );
             })}

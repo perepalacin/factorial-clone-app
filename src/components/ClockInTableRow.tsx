@@ -7,14 +7,10 @@ import { Slide, ToastContainer, toast } from 'react-toastify';
 import "react-toastify/ReactToastify.css";
 
 export interface ShiftsProps {
-  startTime: string;
-  endTime: string;
+  day: string;
+  start: string;
+  finish: string;
   working: boolean;
-}
-
-interface ShiftsListProps extends ShiftsProps {
-  id: string;
-  type: boolean
 }
 
 interface ClockInTableRowProps {
@@ -32,10 +28,16 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
 
   //This state holds the info for all the shifts in the row
   const [shifts, setShifts] = useState(props.shifts || []);
+  useEffect(() => {
+    if (props.shifts) {
+      setShifts(props.shifts);
+    }
+  }, [props.shifts]);
   //State for the new shifts created.
   const [newShift, setNewShift] = useState<ShiftsProps>({
-    startTime: "",
-    endTime: "",
+    day: "",
+    start: "",
+    finish: "",
     working: true,
   });
   const [editedShift, setEditedShift] = useState<Number | undefined>(undefined);
@@ -47,7 +49,6 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
   useEffect(() => {
     for (let i = 0; i< shifts.length; i++) {
       if (shifts[i].working) {
-        
       }
     }
   }, [shifts]);
@@ -85,12 +86,12 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
       const auxShifts = [...shifts];
       if (input === "start") {
       console.log("start");
-        auxShifts[key] = { ...auxShifts[key], startTime: value };
+        auxShifts[key] = { ...auxShifts[key], start: value };
         setShifts(auxShifts);
         return null;
       } else {
       console.log("end");
-        auxShifts[key] = { ...auxShifts[key], endTime: value };
+        auxShifts[key] = { ...auxShifts[key], finish: value };
         setShifts(auxShifts);
         return null;
       }
@@ -99,14 +100,14 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
       if (input === "start") {
         const auxShift: ShiftsProps = {
           ...newShift,
-          startTime: value,
+          start: value,
         };
         setNewShift(auxShift);
         return null;
       } else {
         const auxShift: ShiftsProps = {
           ...newShift,
-          endTime: value,
+          finish: value,
         };
         setNewShift(auxShift);
         return null;
@@ -124,12 +125,13 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
   const handleShiftSubmit = () => {
     if (
       shifts.length !== 0 &&
-      shifts[shifts.length - 1].endTime < newShift.startTime &&
-      newShift.startTime < newShift.endTime
+      shifts[shifts.length - 1].finish < newShift.start &&
+      newShift.start < newShift.finish
     ) {
       const emptyShift: ShiftsProps = {
-        startTime: newShift.endTime.slice(0, -1) + Number(newShift.endTime.slice(-1)+1).toString(),
-        endTime: "",
+        day: "",
+        start: newShift.finish.slice(0, -1) + Number(newShift.finish.slice(-1)+1).toString(),
+        finish: "",
         working: true,
       };
       setIsComponentVisible(false);
@@ -137,11 +139,12 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
       setNewShift(emptyShift);
       setShifts(shifts.concat(newShift));
       return null;
-    } else if (shifts.length === 0 && newShift.startTime < newShift.endTime) {
+    } else if (shifts.length === 0 && newShift.start < newShift.finish) {
       setShifts([newShift]);
       const emptyShift: ShiftsProps = {
-        startTime: newShift.endTime.slice(0, -1) + Number(newShift.endTime.slice(-1)+1).toString(),
-        endTime: "",
+        day: "",
+        start: newShift.finish.slice(0, -1) + Number(newShift.finish.slice(-1)+1).toString(),
+        finish: "",
         working: true,
       };
       setIsComponentVisible(false);
@@ -153,7 +156,8 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
     notify();
     return null;
   };
-
+  console.log(props.day);
+  console.log(props.shifts);
 
   return (
     <tbody>
@@ -172,9 +176,13 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
           }}
         >
           {shifts.map((item, key) => {
+            const date = new Date(item.day);
+            if (date.getDay() === props.day) {
+              
+            }
             return (
               <div
-                key={item.startTime}
+                key={item.start}
                 style={{
                   display: "flex",
                   flexDirection: "row",
@@ -186,7 +194,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
                 {/* TODO: */}
                 <input
                   placeholder="--:--"
-                  value={item.startTime}
+                  value={item.start}
                   type="time"
                   onChange={(event) =>
                     handleInputChange(event.target.value, "start", key)
@@ -200,7 +208,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
                 -
                 <input
                   placeholder="--:--"
-                  value={item.endTime}
+                  value={item.finish}
                   type="time"
                   onChange={(event) =>
                     handleInputChange(event.target.value, "end", key)
@@ -289,7 +297,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
                     type="time"
                     max="23:59"
                     min="00:00"
-                    value={newShift.startTime}
+                    value={newShift.start}
                     onChange={(event) => {
                       handleInputChange(event.target.value, "start", null);
                     }}
@@ -303,7 +311,7 @@ const ClockInTableRow = (props: ClockInTableRowProps) => {
                   <input
                     placeholder="--:--"
                     type="time"
-                    value={newShift.endTime}
+                    value={newShift.finish}
                     onChange={(event) => {
                       handleInputChange(event.target.value, "end", null);
                     }}
